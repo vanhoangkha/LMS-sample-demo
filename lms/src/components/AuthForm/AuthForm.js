@@ -151,23 +151,23 @@ export default function AuthForm(props) {
             button: {
               primary: {
                 backgroundColor: {
-                  value: data ? data.MainColor : '#EC7211'
+                  value: data?.MainColor || '#EC7211' 
                 },
                 borderColor: {
-                  value: data ? data.MainColor : '#EC7211'
+                  value: data?.MainColor || '#EC7211' 
                 },
                 color: {
-                  value: data ? data.TexColor : 'white'
+                  value: data?.TexColor || 'white'
                 },
                 _hover: {
                   backgroundColor: {
-                    value: data ? data.MainColor : '#EC7211',
+                    value: data?.MainColor || '#EC7211',
                   },
                 },
               },
               _hover: {
                 backgroundColor: {
-                  value: data ? data.MainColor : '#EC7211',
+                  value: data?.MainColor || '#EC7211',
                 },
               },
             },
@@ -175,20 +175,20 @@ export default function AuthForm(props) {
               item: {
                 _focus: {
                   color: {
-                    value: data ? data.MainColor : '#EC7211',
+                    value: data?.MainColor || '#EC7211',
                   }
                 },
                 _hover: {
                   color: {
-                    value: data ? data.MainColor : '#EC7211',
+                    value: data?.MainColor || '#EC7211',
                   },
                 },
                 _active: {
                   color: {
-                    value: data ? data.MainColor : '#EC7211',
+                    value: data?.MainColor || '#EC7211',
                   },
                   borderColor: {
-                    value: data ? data.MainColor : '#EC7211'
+                    value: data?.MainColor || '#EC7211'
                   }
                 },
               },

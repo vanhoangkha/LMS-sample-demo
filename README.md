@@ -25,10 +25,8 @@
 ## 2. Clone Code:
 
 ```
-git clone https://github.com/vanhoangkha/MVP.git
+git clone https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/lms/aws_lms_dev
 ```
-
-After that, check out git branch **d_unicorm_gym_master**
 
 ## 3. Download Amplify CLI:
 Follow below instructions in section "Install the Amplify CLI", and section "Configure the Amplify CLI":
@@ -38,15 +36,14 @@ Follow below instructions in section "Install the Amplify CLI", and section "Con
 **Step:** "Specify the **AWS Region**" -> Choose **Singapore Region**.
 
 ## 4. Init Amplify and connect your local env to the Cloud:
-- Check out git branch d_unicorm_gym_master before continuing.
-- Open your local LMS root folder and do amplify setup with lms first:
+- Open your local aws_lms_dev root folder and do amplify setup with lms first:
 
 ```
-cd lms/lms
+cd aws_lms_dev/lms
 
 (sudo) amplify init
 
-? Enter a name for the environment: dev
+? Enter a name for the environment: hdbank
 
 ? Choose your default editor: <Choose your favorite editor>
 
@@ -61,14 +58,11 @@ amplify push
 ```
 
 - Similarly, do all the above steps in this section 3 for lms:
-- Open the Cognito User Pool console of **lms** to add a custom attribute for user:
-    - Choose **Sign-up** experience
-    - At **Custom attributes** section, click **Add custom attributes**
-    - Enter `name_on_certificate` for **Name**, then click **Save changes**
-- Open your local LMS root folder, then:
+
+- Open your local aws_lms_dev root folder, then:
 
 ```
-cd lms/lms-studio
+cd aws_lms_dev/lms-studio
 
 (sudo) amplify init
 ```
@@ -141,8 +135,8 @@ amplify push
 }
 
 ```
+**Note**: S3 bucket name is formatted: **lecture-resource...-[environment name]**
 
-- Then, create a role named "amplify-lmsstudio-prod-authRole" and attach the policy to it.
 ## 5. Check Your Apps Are On or Not:
 - Open your own Isengard account and go to "Amplify" service to check if your app is now shown on or not (app names: lms, lmsstudio)
 
@@ -207,5 +201,5 @@ After publishing, follow these additional steps:
 - Go to Cognito User Pool.
 - Select the "Sign-up experience" tab.
 - In the "Custom attributes" section, click "Add custom attributes."
-- Enter "name_on_certificate."
-
+- Enter "name_on_certificate" for signup of **lms** cognito user pool
+- Enter "role" for signup of **lms-studio** cognito user pool

@@ -125,7 +125,7 @@ export default function SetUI() {
   const deleteUISet = async () => {
     let newUISet = [...listUISet]
     try {
-      await API.del(apiName, uiConfigPath + selectedItems[0].ID);
+      await API.del(apiName, uiConfigPath + "/" + selectedItems[0].ID);
       newUISet = newUISet.filter(
         (uiSet) => uiSet.ID != selectedItems[0].ID
       );
@@ -203,14 +203,14 @@ export default function SetUI() {
           {
             id: "banner",
             header: "Banner Image",
-            cell: (e) => e.Banner.split("/")[2],
+            cell: (e) => e.Banner?.split("/")[2],
             sortingField: "ID",
             isRowHeader: true,
           },
           {
             id: "banner_icon",
             header: "Banner Icon",
-            cell: (e) => e.BannerIcon.split("/")[2],
+            cell: (e) => e.BannerIcon?.split("/")[2],
           },
         ]}
         columnDisplay={[

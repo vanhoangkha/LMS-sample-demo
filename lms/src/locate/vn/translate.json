@@ -34,7 +34,11 @@
         }
       ],
       "list_title": "Các khoá học",
-      "list_title_unauthen": "Các khoá học phổ biến"
+      "list_title_unauthen": "Các khoá học phổ biến",
+      "start": "Bắt đầu"
+    },
+    "breadcrumbs": {
+      "mylearning": "Bài học"
     },
     "auth":{
       "password": {
@@ -53,6 +57,53 @@
         "label": "Email:",
         "placeholder": "Nhập email của bạn"
       }
+    },
+    "course":{
+      "level": "Độ khó:",
+      "category": "Nhóm:",
+      "tag": "Nhãn:",
+      "benefit": "Nội dung tóm tắt",
+      "summerize": {
+        "title": "Khoá học bao gồm",
+        "video": "video bài giảng",
+        "lab": "bài tập"
+      },
+      "start": "Bắt đầu khoá học",
+      "content": "Nôi dung khoá học",
+      "requirement": "Yêu cầu"
+    },
+    "learn": {
+      "autoNext": "Tự động chuyển",
+      "completeLesson": "Đã hoàn thành ",
+      "outOf": "trên ",
+      "lectures": "bài",
+      "question": "Câu hỏi ",
+      "start": "Bắt đầu",
+      "finish": "Kết thúc",
+      "retry": "Làm lại",
+      "answer": "Trả lời",
+      "next": "Tiếp theo",
+      "ok": "OK",
+      "pass": "Chúc mừng bạn đã hoàn thành",
+      "fail": "Cố gắng lần sau bạn nhé.",
+      "complete": "Chúc mừng bạn đã hoàn thành",
+      "transcription": "Phiên mã",
+      "more": "Bổ sung",
+      "document": "Tài liệu",
+      "docURL": "Link tài liệu"
+    },
+    "cert":{
+      "review": "Xem lại khoá học",
+      "share": "Chia sẻ",
+      "download": "Tải xuống"
+    },
+    "mylearning": {
+      "recent": "Hoạt động gần đây",
+      "notice": "Không có khoá học nào",
+      "assign": "Khoá học được đăng ký",
+      "self_enroll": "Khoá học tự đăng ký",
+      "cert": "Chứng chỉ",
+      "continue": "Tiếp tục"
     }
   }
 }

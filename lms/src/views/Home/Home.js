@@ -9,6 +9,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 
 import bannerIcon from "../../assets/images/dashboard-banner-icon.png";
+import banner from "../../assets/images/dashboard-banner.png"
 import hightlightIcon1 from "../../assets/images/dashboard-highlight-1.png";
 import hightlightIcon2 from "../../assets/images/dashboard-highlight-2.png";
 import hightlightIcon3 from "../../assets/images/dashboard-highlight-3.png";
@@ -252,6 +253,7 @@ export class Home extends React.Component {
   };
 
   renderCourses = (course) => {
+    const { t } = this.props;
     return (
       <div className="dashboard-courses-list-item" key={course.id}>
         <div className="dashboard-courses-list-item-info">
@@ -322,7 +324,7 @@ export class Home extends React.Component {
               onClick={() => this.redirectToCourse(course.id)}
             >
               <span>
-                Get Started <Icon name="arrow-left" className="rotate-180" />
+                {t("home.start")} <Icon name="arrow-left" className="rotate-180" />
               </span>
             </button>
           ) : (
@@ -332,7 +334,7 @@ export class Home extends React.Component {
               onClick={() => this.redirectToCourse(course.id)}
             >
               <span>
-                Get Started <Icon name="arrow-left" className="rotate-180" />
+                {t("home.start")} <Icon name="arrow-left" className="rotate-180" />
               </span>
             </button>
           )}
@@ -396,7 +398,7 @@ export class Home extends React.Component {
                 ? t("home.list_title")
                 : t("home.list_title_unauthen")}
             </p>
-            <div className="dashboard-courses-header-decor" />
+            <div className="dashboard-courses-header-decor" style={{borderTop: `solid 3px ${this.state.uiSet?.MainColor || "#EC7211"}`}}/>
             <div className="dashboard-courses-list">
               {this.state.loading ? (
                 <img
@@ -429,27 +431,27 @@ export class Home extends React.Component {
         <div className="dashboard-main">
           <div
             className="dashboard-banner"
-            style={{ backgroundImage: `url(${this.state.banner})` }}
+            style={{ backgroundImage: `url(${this.state.banner || banner})` }}
           >
             <Grid gridDefinition={[{ colspan: 10 }, { colspan: 2 }]}>
               <div>
                 <p className="dashboard-banner-title">
                   {
                     //t("home.title")
-                    this.state.uiSet.WebTitle
+                    this.state.uiSet?.WebTitle
                   }
                 </p>
                 <p className="dashboard-banner-desc">
                   {
                     // t("home.des")
-                    this.state.uiSet.WebDesc
+                    this.state.uiSet?.WebDesc
                   }
                 </p>
               </div>
               <div className="dashboard-banner-icon-container">
                 <img
                   className="dashboard-banner-icon"
-                  src={this.state.bannerIcon}
+                  src={this.state.bannerIcon || bannerIcon}
                   alt="Banner Icon"
                 />
               </div>
@@ -468,7 +470,7 @@ export class Home extends React.Component {
                 ? t("home.list_title")
                 : t("home.list_title_unauthen")}
             </p>
-            <div className="dashboard-courses-header-decor" />
+            <div className="dashboard-courses-header-decor" style={{borderTop: `solid 3px ${this.state.uiSet?.MainColor || "#EC7211"}`}}/>
             <div className="dashboard-courses-list">
               {this.state.loading ? (
                 <img

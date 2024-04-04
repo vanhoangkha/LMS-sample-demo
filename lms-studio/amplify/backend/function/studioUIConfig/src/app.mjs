@@ -157,17 +157,17 @@ app.delete(path + hashKeyPath, function (req, res) {
     res.json({ error: "Wrong column type " + err });
   }
 
-  if (hasSortKey) {
-    try {
-      params[sortKeyName] = convertUrlType(
-        req.params[sortKeyName],
-        sortKeyType
-      );
-    } catch (err) {
-      res.statusCode = 500;
-      res.json({ error: "Wrong column type " + err });
-    }
-  }
+  // if (hasSortKey) {
+  //   try {
+  //     params[sortKeyName] = convertUrlType(
+  //       req.params[sortKeyName],
+  //       sortKeyType
+  //     );
+  //   } catch (err) {
+  //     res.statusCode = 500;
+  //     res.json({ error: "Wrong column type " + err });
+  //   }
+  // }
 
   let removeItemParams = {
     TableName: tableName,

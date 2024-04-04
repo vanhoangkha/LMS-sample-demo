@@ -38,7 +38,11 @@
         }
       ],
       "list_title": "Available courses",
-      "list_title_unauthen": "Popular courses"
+      "list_title_unauthen": "Popular courses",
+      "start": "Start"
+    },
+    "breadcrumbs": {
+      "mylearning": "My learning"
     },
     "auth":{
       "password": {
@@ -57,6 +61,52 @@
         "label": "Email:",
         "placeholder": "Enter your email"
       }
+    },
+    "course":{
+      "level": "Level:",
+      "category": "Category:",
+      "tag": "Tag:",
+      "benefit": "What you'll learn",
+      "summerize": {
+        "title": "This couse includes",
+        "video": "lesson videos",
+        "lab": "hand-on labs"
+      },
+      "start": "Start Course",
+      "content": "Course Content",
+      "requirement": "Requirements"
+    },
+    "learn": {
+      "autoNext": "Auto next",
+      "completeLesson": "Completed ",
+      "outOf": "out of ",
+      "lectures": "lectures",
+      "question": "Question ",
+      "start": "Start",
+      "finish": "Finish",
+      "retry": "Retry",
+      "answer": "Answer",
+      "next": "Next",
+      "ok": "OK",
+      "pass": "Congratulation! You passed the quiz.",
+      "fail": "Unfortunately you didn't pass. Keep trying!",
+      "complete": "Congratulations on completing the quiz",
+      "more": "More",
+      "document": "Document",
+      "docURL": "Document URL"
+    },
+    "cert":{
+      "review": "Review course",
+      "share": "Share",
+      "download": "Download"
+    },
+    "mylearning": {
+      "recent": "Recent activity",
+      "notice": "You don't have any course assigned to you.",
+      "assign": "You didn't enrolled any course.",
+      "self_enroll": "Self-enrolled courses",
+      "cert": "Certificate",
+      "continue": "Continue"
     }
   }
 }

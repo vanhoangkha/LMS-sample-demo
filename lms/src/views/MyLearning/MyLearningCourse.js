@@ -6,8 +6,9 @@ import { Button, Icon, ProgressBar } from '@cloudscape-design/components';
 import loadingGif from '../../assets/images/loading.gif';
 import courseDefaultThumbnail from '../../assets/images/course-default-thumbnail.png';
 import { calcTime, calcTimeBrief } from "../../utils/tools"
+import { withTranslation } from "react-i18next";
 
-export default class MyLearningCourse extends React.Component {
+class MyLearningCourse extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -96,57 +97,138 @@ export default class MyLearningCourse extends React.Component {
 
     render() {
         let course = this.state.course;
-
-        return !!this.state.redirectToCert
-            ? <Navigate to={'/cert/' + course.id} />
-            : !!this.state.redirectToLearn
-            ? <Navigate to={'/learn/' + course.id} />
-            : !course
-            ? <div>{this.state.loading ? <img src={loadingGif} alt="loading..." className='mylearning-loading-gif' /> : <></>}</div>
-            : <div className='mylearning-course'>
-                <div className='mylearning-course-info'>
-                    <div className='mylearning-course-title'>
-                        {!!course.name ? course.name : ""}
-                    </div>
-                    <div className='mylearning-course-property'>
-                        <Icon variant='subtle' name='ticket' className='mylearning-course-property-icon'/> Level: {!!course.level ? course.level : ""}
-                    </div>
-                    <div className='mylearning-course-property'>
-                        <Icon variant='subtle' name='check' className='mylearning-course-property-icon'/> 
-                        Category: 
-                        {!!course.categories ? course.categories.map((category, index) => <span key={index}>{index !== 0 ? ', ' : ' '}<a href='/#'>{category}</a></span>) : ""}
-                    </div>
-                    <div className='mylearning-course-property'>
-                        <Icon variant='subtle' name='check' className='mylearning-course-property-icon'/> 
-                        Tag:
-                        {!!course.tags ? course.tags.map((tag, index) => <span key={index}>{index !== 0 ? ', ' : ' '}<a href='/#'>{tag}</a></span>) : ""}
-                    </div>
-                    <div className='mylearning-course-property'>
-                        <Icon variant='subtle' name='status-pending' className='mylearning-course-property-icon'/> 
-                          {calcTimeBrief(course.length)}
-                    </div>
-                    <div className='mylearning-course-desc'>
-                        {!!course.description ? course.description : ""}
-                    </div>
-                </div>
-                <div className='mylearning-course-thumbnail'>
-                    <img src={courseDefaultThumbnail} alt='Course Thumbnail'/>
-                </div>
-                <div className='mylearning-course-separator'/>
-                <div className='mylearning-progress'>
-                    {this.state.completedLectures != null && !!this.state.totalLectures 
-                        ? <ProgressBar
-                            value={this.state.completedLectures / this.state.totalLectures * 100}
-                        /> : <img src={loadingGif} alt="loading..." className='mylearning-loading-gif' />}
-                </div>
-                <div className='mylearning-course-action'>
-                    {this.state.completedLectures / this.state.totalLectures >= 0.8 ? <Button onClick={() => this.setState({redirectToCert: course.id})}>
-                        Certificate <Icon name='file' />
-                    </Button> : ""}
-                    <Button variant="primary" className='btn-orange mylearning-continue-btn' onClick={() => this.setState({redirectToLearn: course.id})}>
-                        Continue <Icon name='arrow-left' className='rotate-180' />
-                    </Button>
-                </div>
+        const { t } = this.props;
+        return !!this.state.redirectToCert ? (
+          <Navigate to={"/cert/" + course.id} />
+        ) : !!this.state.redirectToLearn ? (
+          <Navigate to={"/learn/" + course.id} />
+        ) : !course ? (
+          <div>
+            {this.state.loading ? (
+              <img
+                src={loadingGif}
+                alt="loading..."
+                className="mylearning-loading-gif"
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+        ) : (
+          <div className="mylearning-course">
+            <div className="mylearning-course-info">
+              <div className="mylearning-course-title">
+                {!!course.name ? course.name : ""}
+              </div>
+              <div className="mylearning-course-property">
+                <Icon
+                  variant="subtle"
+                  name="ticket"
+                  className="mylearning-course-property-icon"
+                />{" "}
+                {t("course.level")} {!!course.level ? course.level : ""}
+              </div>
+              <div className="mylearning-course-property">
+                <Icon
+                  variant="subtle"
+                  name="check"
+                  className="mylearning-course-property-icon"
+                />
+                {t("course.category")}
+                {!!course.categories
+                  ? course.categories.map((category, index) => (
+                      <span key={index}>
+                        {index !== 0 ? ", " : " "}
+                        <a href="/#">{category}</a>
+                      </span>
+                    ))
+                  : ""}
+              </div>
+              <div className="mylearning-course-property">
+                <Icon
+                  variant="subtle"
+                  name="check"
+                  className="mylearning-course-property-icon"
+                />
+                {t("course.tag")}
+                {!!course.tags
+                  ? course.tags.map((tag, index) => (
+                      <span key={index}>
+                        {index !== 0 ? ", " : " "}
+                        <a href="/#">{tag}</a>
+                      </span>
+                    ))
+                  : ""}
+              </div>
+              <div className="mylearning-course-property">
+                <Icon
+                  variant="subtle"
+                  name="status-pending"
+                  className="mylearning-course-property-icon"
+                />
+                {calcTimeBrief(course.length)}
+              </div>
+              <div className="mylearning-course-desc">
+                {!!course.description ? course.description : ""}
+              </div>
             </div>
+            <div className="mylearning-course-thumbnail">
+              <img src={courseDefaultThumbnail} alt="Course Thumbnail" />
+            </div>
+            <div className="mylearning-course-separator" />
+            <div className="mylearning-progress">
+              {this.state.completedLectures != null &&
+              !!this.state.totalLectures ? (
+                <ProgressBar
+                  value={
+                    (this.state.completedLectures / this.state.totalLectures) *
+                    100
+                  }
+                />
+              ) : (
+                <img
+                  src={loadingGif}
+                  alt="loading..."
+                  className="mylearning-loading-gif"
+                />
+              )}
+            </div>
+            <div className="mylearning-course-action">
+              {this.state.completedLectures / this.state.totalLectures >=
+              0.8 ? (
+                <Button
+                  onClick={() => this.setState({ redirectToCert: course.id })}
+                >
+                  {t("mylearning.cert")} <Icon name="file" />
+                </Button>
+              ) : (
+                ""
+              )}
+              {/* <Button
+                variant="primary"
+                className="btn-orange mylearning-continue-btn"
+                onClick={() => this.setState({ redirectToLearn: course.id })}
+              >
+                Continue <Icon name="arrow-left" className="rotate-180" />
+              </Button> */}
+              <button
+                variant="primary"
+                className="btn-normal"
+                style={{
+                  background: `${this.props.uiSet?.MainColor}`,
+                  borderColor: `${this.props.uiSet?.MainColor}`,
+                  color: `${this.props.uiSet?.TextColor}`,
+                }}
+                onClick={() => this.redirectToCourse(course.id)}
+              >
+                <span>
+                  {t("mylearning.continue")} <Icon name="arrow-left" className="rotate-180" />
+                </span>
+              </button>
+            </div>
+          </div>
+        );
     };
 }
+
+export default withTranslation()(MyLearningCourse)

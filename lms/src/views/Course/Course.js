@@ -2,6 +2,7 @@ import React from 'react';
 import './Course.css';
 import { Navigate } from "react-router-dom";
 import { API } from 'aws-amplify';
+import { withTranslation } from "react-i18next";
 import { Grid, Button, Icon, ExpandableSection } from '@cloudscape-design/components';
 import courseDefaultThumbnail from '../../assets/images/course-default-thumbnail.png';
 import NavBar from '../../components/NavBar/NavBar';
@@ -9,7 +10,7 @@ import Footer from '../../components/Footer/Footer';
 import loadingGif from '../../assets/images/loading.gif';
 import { calcTimeBrief, getUISet } from "../../utils/tools";
 
-export default class Course extends React.Component {
+class Course extends React.Component {
     constructor(props) {
         super(props);
         this.state = { 
@@ -62,6 +63,7 @@ export default class Course extends React.Component {
     }
 
     render() {
+        const { t } = this.props;
         let course = this.state.course;
         let chapters = [];
         let videoCount = 0;
@@ -101,11 +103,11 @@ export default class Course extends React.Component {
                             {course.name}
                         </div>
                         <div className='course-property'>
-                            <Icon variant='subtle' name='ticket' className='course-property-icon'/> Level: {course.level}
+                            <Icon variant='subtle' name='ticket' className='course-property-icon'/>{t("course.level")} {course.level}
                         </div>
                         <div className='course-property'>
                             <Icon variant='subtle' name='check' className='course-property-icon'/> 
-                            Category: 
+                            {t("course.category")} 
                             {course.categories.map((category, index) => <span key={index}>{index !== 0 ? ', ' : ' '}<a href='/#'>{category}</a></span>)}
                         </div>
                         {/* <div className='course-property'>
@@ -133,7 +135,7 @@ export default class Course extends React.Component {
                             >
                             <div>
                                 <div className='course-what-to-learn-title'>
-                                    What you'll learn
+                                    {t("course.benefit")}
                                 </div>
                                 {course.whatToLearn.map((item, index) => <div key={index} className='course-what-to-learn-item'>
                                     <Icon variant='subtle'
@@ -155,7 +157,7 @@ export default class Course extends React.Component {
                             <div>
                                 <div className='board'>
                                     <div className='board-header'>
-                                        This couse includes
+                                        {t("course.summerize.title")}
                                     </div>
                                     <div className='board-content'>
                                         <div className='course-what-to-learn-item'>
@@ -175,7 +177,7 @@ export default class Course extends React.Component {
                                                 }
                                             
                                             /> 
-                                            <div>{videoCount} lesson videos</div>
+                                            <div>{videoCount} {t("course.summerize.video")}</div>
                                         </div>
                                         { labCount > 0 ? <div className='course-what-to-learn-item'>
                                             <Icon
@@ -190,7 +192,7 @@ export default class Course extends React.Component {
                                                     </svg>
                                                 }
                                             />
-                                            <div>{labCount} hand-on labs</div>
+                                            <div>{labCount} {t("course.summerize.lab")}</div>
                                         </div> : <></> }
                                         {/* <div className='course-what-to-learn-item'>
                                             <Icon variant='subtle' name='calendar'/>
@@ -208,7 +210,7 @@ export default class Course extends React.Component {
                                                     color: `${this.state.uiSet.TextColor}`}} 
                                             onClick={() => this.openLearn()}
                                         >
-                                            Start Course
+                                            {t("course.start")}
                                         </button>
                                     </div>
                                 </div>
@@ -219,7 +221,7 @@ export default class Course extends React.Component {
 
                         <div className='board'>
                             <div className='board-header'>
-                                Course content
+                                {t("course.content")}
                             </div>
                             <div className='board-content'>
                                 {course.chapters.map((chapter, index) => <ExpandableSection key={index} className='course-lectures' headerText={chapter.name}>
@@ -237,7 +239,7 @@ export default class Course extends React.Component {
 
                         <div className='board'>
                             <div className='board-header'>
-                                Requirements
+                                {t("course.requirement")}
                             </div>
                             <div className='board-content'>
                                 {course.requirements.map((requirement, index) => <ul key={index}>
@@ -253,3 +255,5 @@ export default class Course extends React.Component {
             </div>;
     }
 }
+
+export default withTranslation()(Course)
