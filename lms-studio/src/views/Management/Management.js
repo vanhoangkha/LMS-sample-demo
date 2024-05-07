@@ -16,6 +16,7 @@ function Management(props) {
   const [activeHref, setActiveHref] = useState();
   const [authChecked, setAuthChecked] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
 
   const location = useLocation();
@@ -27,9 +28,12 @@ function Management(props) {
 
   const ionViewCanEnter = async () => {
     try {
-      await Auth.currentAuthenticatedUser();
+      const user = await Auth.currentAuthenticatedUser();
       setAuthChecked(true);
       setAuthenticated(true);
+      if ( user.attributes['custom:role'] === "admin"){
+        setIsAdmin(true)
+      }
     } catch {
       setAuthChecked(true);
       setAuthenticated(false);
@@ -72,7 +76,7 @@ function Management(props) {
                       navigate(`/management/${href}`);
                     }
                   }}
-                  items={[
+                  items={ isAdmin ? [
                     {
                       type: "section",
                       text: "Lectures",
@@ -114,6 +118,40 @@ function Management(props) {
                     { type: "link", text: "Leaderboard", href: "leaderboard" },
                     { type: "link", text: "Sale", href: "sale" },
                     { type: "link", text: "Set UI", href: "setUI" },
+                    { type: "link", text: "Batch Management", href: "batchManange"},
+                  ] : [
+                    {
+                      type: "section",
+                      text: "Lectures",
+                      items: [
+                        {
+                          type: "link",
+                          text: "My Lectures",
+                          href: "myLectures",
+                        },
+                        {
+                          type: "link",
+                          text: "Public Lectures",
+                          href: "publicLectures",
+                        },
+                      ],
+                    },
+                    {
+                      type: "section",
+                      text: "Courses",
+                      items: [
+                        {
+                          type: "link",
+                          text: "My Courses",
+                          href: "myCourses",
+                        },
+                        {
+                          type: "link",
+                          text: "Public Courses",
+                          href: "publicCourses",
+                        },
+                      ],
+                    },
                   ]}
                 />
               }

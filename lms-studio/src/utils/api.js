@@ -3,9 +3,11 @@ import axios from 'axios'
 export const apiName = "lmsStudio";
 export const lecturePath = "/lectures";
 export const lecturePublicPath = "/lectures/public";
+export const batchWriteLecturePath = "/lectures/batchWrite";
 export const myLecturePath = "/lectures/myLectures";
 export const lectureTopViewPath = "/topViews";
 export const coursePath = "/courses";
+export const batchWriteCoursePath = "/courses/batchWrite";
 export const courseTopViewPath = "/topViews";
 export const addAccessCode = "/addAc";
 export const userOverview = "/userOverview";

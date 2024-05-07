@@ -75,12 +75,12 @@ const MyCourses = () => {
         break;
       case "edt1":
         navigate(`/editCourse/${course?.ID}`, {
-          state: course,
+          state: course
         });
         break;
       case "detail":
         navigate(`/myCourses/detail/${course?.ID}`, {
-          state: course,
+          state: course
         });
         break;
       default:

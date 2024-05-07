@@ -7,6 +7,7 @@ import {
   QueryCommand,
   DeleteCommand,
   UpdateCommand,
+  BatchWriteCommand,
 } from "@aws-sdk/lib-dynamodb";
 
 import express from "express";
@@ -357,6 +358,53 @@ app.put(path + "/addAC" + aCPath, function (req, res) {
       res.json({ error: err, info: req.info, body: req.body });
     }
   );
+});
+
+// /************************************
+// * HTTP put method for insert object *
+// *************************************/
+
+app.put(path + "/batchWrite", function (req, res) {
+  let courseChunks = [];
+  while (req.body.length > 0) {
+    courseChunks.push(req.body.splice(0, 5));
+  }
+  // console.log("courseChunks", courseChunks)
+  let promises = courseChunks.map((chunk) => {
+    const putRequests = chunk.map((course) => {
+      course["CreatorID"] =
+        req.apiGateway.event.requestContext.identity.cognitoAuthenticationProvider.split(
+          ":CognitoSignIn:"
+        )[1] || UNAUTH;
+      return {
+        PutRequest: {
+          Item: course,
+        },
+      };
+    });
+    console.log("putRequests", putRequests);
+    const command = new BatchWriteCommand({
+      RequestItems: {
+        [tableName]: putRequests,
+      },
+    });
+
+    return new Promise((resolve, reject) => {
+      docClient.send(command).then((data) => {
+        console.log(data);
+        resolve(data);
+      }),
+        (err) => {
+          console.log(err);
+          reject(err);
+        };
+    });
+  });
+
+  Promise.all(promises).then(function (results) {
+    console.log(results);
+    res.json({ results });
+  });
 });
 
 // /**************************************

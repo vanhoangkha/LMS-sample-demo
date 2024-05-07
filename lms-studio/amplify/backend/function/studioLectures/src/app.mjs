@@ -7,6 +7,7 @@ import {
   QueryCommand,
   DeleteCommand,
   UpdateCommand,
+  BatchWriteCommand,
 } from "@aws-sdk/lib-dynamodb";
 
 import express from "express";
@@ -37,7 +38,7 @@ const sortKeyPath = hasSortKey ? "/:" + sortKeyName : "";
 
 // declare a new express app
 const app = express();
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: "50mb" }));
 app.use(awsServerlessExpressMiddleware.eventContext());
 
 // Enable CORS for all methods
@@ -62,24 +63,41 @@ const convertUrlType = (param, type) => {
  ********************************/
 
 app.get(path, function (req, res) {
-  const condition = {};
-  condition[sortKeyName] = {
-    ComparisonOperator: "EQ",
-  };
-  condition[sortKeyName]["AttributeValueList"] = [
-    req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH,
-  ];
-
-  let queryParams = {
+  // const condition = {};
+  // condition[sortKeyName] = {
+  //   ComparisonOperator: "EQ",
+  // };
+  // condition[sortKeyName]["AttributeValueList"] = [
+  //   req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH,
+  // ];
+  let lectureList = [];
+  let scanParams = {
     TableName: tableName,
-    KeyConditions: condition,
-    IndexName: "CreatorID-index",
+    ProjectionExpression: "ID, #name, #duration, #type",
+    ExpressionAttributeNames: {
+      "#name": "Name",
+      "#duration": "Length",
+      "#type": "Type",
+    },
   };
 
-  const command = new QueryCommand(queryParams);
+  const command = new ScanCommand(scanParams);
   docClient.send(command).then(
     (data) => {
-      res.json(data.Items);
+      // res.json(data.Items);
+      lectureList = [...lectureList, ...data.Items];
+      let resquest = data;
+      while (resquest.LastEvaluatedKey) {
+        const command = {
+          TableName: tableName,
+          ExclusiveStartKey: response["LastEvaluatedKey"],
+        };
+        docClient.send(command).then((data) => {
+          lectureList = [...lectureList, ...data.Items];
+          resquest = data;
+        });
+      }
+      res.json(lectureList);
     },
     (err) => {
       console.log(err);
@@ -250,7 +268,10 @@ app.get(path + hashKeyPath, function (req, res) {
 
 app.put(path, function (req, res) {
   if (userIdPresent) {
-    req.body['CreatorID'] = req.apiGateway.event.requestContext.identity.cognitoAuthenticationProvider.split(':CognitoSignIn:')[1] || UNAUTH;
+    req.body["CreatorID"] =
+      req.apiGateway.event.requestContext.identity.cognitoAuthenticationProvider.split(
+        ":CognitoSignIn:"
+      )[1] || UNAUTH;
   }
 
   let putItemParams = {
@@ -267,6 +288,53 @@ app.put(path, function (req, res) {
       res.json({ error: err, info: req.info, body: req.body });
     }
   );
+});
+
+// /************************************
+// * HTTP put method for insert object *
+// *************************************/
+
+app.put(path + "/batchWrite", function (req, res) {
+  let lectureChunks = [];
+  while (req.body.length > 0) {
+    lectureChunks.push(req.body.splice(0, 10));
+  }
+  // console.log("lectureChunks", lectureChunks)
+  let promises = lectureChunks.map((chunk) => {
+    const putRequests = chunk.map((lecture) => {
+      lecture["CreatorID"] =
+        req.apiGateway.event.requestContext.identity.cognitoAuthenticationProvider.split(
+          ":CognitoSignIn:"
+        )[1] || UNAUTH;
+      return {
+        PutRequest: {
+          Item: lecture,
+        },
+      };
+    });
+    console.log("putRequests", putRequests);
+    const command = new BatchWriteCommand({
+      RequestItems: {
+        [tableName]: putRequests,
+      },
+    });
+
+    return new Promise((resolve, reject) => {
+      docClient.send(command).then((data) => {
+        console.log(data);
+        resolve(data);
+      }),
+        (err) => {
+          console.log(err);
+          reject(err);
+        };
+    });
+  });
+
+  Promise.all(promises).then(function (results) {
+    console.log(results);
+    res.json({ results });
+  });
 });
 
 app.post(path, function (req, res) {

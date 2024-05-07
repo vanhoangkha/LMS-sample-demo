@@ -43,6 +43,7 @@ import GenerateCode from './views/GenerateCode/GenerateCode'
 import SetUI from './views/Management/SetUI/SetUI'
 import CreateSetUI from './views/CreateSetUI/CreateSetUI'
 import UpdateUISet from './views/UpdateUISet/UpdateUISet'
+import BatchManagement from "./views/Management/BatchManagement/BatchManagement"
 
 // Configure Amplify
 Amplify.configure(awsExports);
@@ -109,7 +110,10 @@ const router = createHashRouter([
         path: "setUI/createSetUI",
         element: <CreateSetUI />
       },
-      
+      {
+        path: "batchManange",
+        element: <BatchManagement/>
+      },
     ],
   },
   {
@@ -183,6 +187,10 @@ const router = createHashRouter([
       {
         path: "setUI",
         element: <SetUI />
+      },
+      {
+        path: "batchManange",
+        element: <BatchManagement/>
       },
     ],
   },

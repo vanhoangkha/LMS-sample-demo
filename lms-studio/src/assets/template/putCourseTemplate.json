@@ -1,0 +1,48 @@
+[
+  {
+    "ID": "course-demo",
+    "AccessCode": {},
+    "Categories": ["Networking"],
+    "Chapters": [
+      {
+        "lectures": [
+          {
+            "lectureId": "a9915526-a689-4590-bb34-0505c93fccf0",
+            "length": 388,
+            "name": "Stay on AWS network: VPC Endpoints",
+            "type": "Video"
+          }
+        ],
+        "name": "Stay on AWS network: VPC Endpoints"
+      },
+      {
+        "lectures": [
+          {
+            "lectureId": "8c778022-a771-496a-8a72-7ba72c9f228e",
+            "length": 354,
+            "name": "VPC Gateway Endpoint",
+            "type": "Video"
+          }
+        ],
+        "name": "VPC Gateway Endpoint"
+      }
+    ],
+    "Description": "Giới thiệu về VPC Endpoint, các loại Endpoint là Interface Endpoints và Gateway Endpoints.\nCách thiết lập và cấu hình VPC Endpoint trong VPC.\nBảo mật và quản lý truy cập sử dụng VPC Endpoint.\nCác tình huống sử dụng thực tế để hiểu rõ về lợi ích và cách ứng dụng của VPC Endpoint.\nKhái niệm về API Gateway và VPC Link.\nThiết lập và cấu hình VPC Link để kết nối API Gateway với các tài nguyên trong VPC.\nBảo mật và phân quyền khi sử dụng API Gateway trong môi trường VPC.\nPhân tích và giải quyết vấn đề trong mô hình tích hợp này.",
+    "Difficulty": true,
+    "LastUpdated": "2024-04-15T16:51:58.775Z",
+    "Length": 4716,
+    "Level": "200",
+    "Name": "Course Demo",
+    "Publicity": 1,
+    "Requirements": [
+      "Kiến thức cơ bản về các dịch vụ AWS",
+      "Đã sử dụng triển khai các dịch vụ mạng tương ứng"
+    ],
+    "State": "Enabled",
+    "Views": 0,
+    "WhatToLearn": [
+      "Hiểu rõ về VPC endpoints và cách chúng cung cấp khả năng kết nối riêng tư đến các dịch vụ AWS mà không cần thông qua Internet.",
+      "Hiểu cách tích hợp API Gateway với VPC thông qua VPC Link, cho phép truy cập vào các tài nguyên bên trong VPC một cách an toàn."
+    ]
+  }
+]
