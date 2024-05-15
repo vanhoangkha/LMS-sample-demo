@@ -9,6 +9,7 @@ import {
   Icon,
   FileUpload,
   Flashbar,
+  Input,
 } from "@cloudscape-design/components";
 import { API, Storage } from "aws-amplify";
 import {
@@ -19,8 +20,9 @@ import {
   batchWriteCoursePath,
 } from "../../../utils/api";
 import { v4 as uuid } from "uuid";
-import LectureList from "../../../assets/test/LectureList.json";
+// import LectureList from "../../../assets/test/LectureList.json";
 import putCourseTemplate from "../../../assets/template/putCourseTemplate.json";
+import Papa from "papaparse";
 
 const successMes = "Created success";
 const noticeMes = "No any resources";
@@ -61,6 +63,7 @@ function BatchManagement(props) {
   const [isCreatingCourse, setIsCreatingCourse] = useState(false);
   const [courseTemplate, setCourseTemplate] = useState([]);
   const [flashItem, setFlashItem] = useState([]);
+  const [folder, setFolder] = useState("")
 
   // test upload 500 records to DynamoDB
   // useEffect(() => {
@@ -72,7 +75,7 @@ function BatchManagement(props) {
     e.preventDefault();
     const lecturesData = [];
     setIsCreatingLecture(true);
-    const lectureList = await Storage.list("lecture-videos/", {
+    const lectureList = await Storage.list(`lecture-videos/${folder}`, {
       pageSize: "ALL",
     });
     // const quizList =  await Storage.list({ prefix: "quizzes/", level: "public" });
@@ -88,7 +91,8 @@ function BatchManagement(props) {
           for (let i = 0; i < chunk.length; i++) {
             const video = chunk[i];
             if (video.size > 0) {
-              const videoName = video.key.split("/")[1];
+              const videoPath = video.key;
+              const videoName = video.key.split("/").slice(-1)[0];
               const splitName = videoName.split("-");
               const transcription =
                 "transcription/" + videoName.split(".")[0] + ".json";
@@ -99,10 +103,11 @@ function BatchManagement(props) {
               const videoEle = await setLectureLength(videoURL);
               const lecture = {
                 ID: uuid(),
-                Name: splitName[1],
+                Name: splitName[1].replace(".mp4", ""),
                 LastUpdated: new Date().toISOString(),
-                Publicity: Number.parseInt(splitName[2]),
-                Content: video.key,
+                Publicity:
+                  splitName.length > 2 ? Number.parseInt(splitName[2]) : 1,
+                Content: videoPath,
                 Type: "Video",
                 State: "Enabled",
                 Length: Math.round(videoEle.duration),
@@ -113,8 +118,8 @@ function BatchManagement(props) {
                 ReferDocs:
                   splitName.length === 5
                     ? `public/refer-docs/${splitName[4]}`
-                    : "",
-                ReferUrl: "",
+                    : [],
+                ReferUrl: [],
                 Transcription: transcription,
               };
 
@@ -199,29 +204,29 @@ function BatchManagement(props) {
     });
 
   const convertToCSV = (objArray) => {
-    var array = typeof objArray != "object" ? JSON.parse(objArray) : objArray;
+    // var array = typeof objArray != "object" ? JSON.parse(objArray) : objArray;
     var str = "";
+    // console.log(array)
+    // for (var i = 0; i < array.length; i++) {
+    //   var line = "";
+    //   if (i === 0) {
+    //     for (var index in array[0]) {
+    //       if (line != "") line += ",";
+    //       line += index;
+    //     }
+    //     str += line + "\r\n";
+    //     line = "";
+    //   }
+    //   for (var index in array[i]) {
+    //     // console.log(array[i])
+    //     if (line != "") line += ",";
 
-    for (var i = 0; i < array.length; i++) {
-      var line = "";
-      if (i === 0) {
-        for (var index in array[0]) {
-          if (line != "") line += ",";
-          line += index;
-        }
-        str += line + "\r\n";
-        line = "";
-      }
-      for (var index in array[i]) {
-        // console.log(array[i])
-        if (line != "") line += ",";
+    //     line += array[i][index];
+    //   }
 
-        line += array[i][index];
-      }
-
-      str += line + "\r\n";
-    }
-
+    //   str += line + "\r\n";
+    // }
+    str = Papa.unparse(objArray)
     return str;
   };
 
@@ -275,14 +280,35 @@ function BatchManagement(props) {
     }
 
     if (chunkCourseList.length > 0) {
-      for (const chunk of chunkCourseList) {
-        try {
+      try {
+        for (const chunk of chunkCourseList) {
           await API.put(apiName, batchWriteCoursePath, { body: chunk });
-        } catch (error) {
-          console.log(error);
         }
+      } catch (error) {
+        console.log(error);
+        setFlashItem([
+          {
+            type: "success",
+            content: errorMess,
+            dismissible: true,
+            dismissLabel: "Dismiss message",
+            onDismiss: () => setFlashItem([]),
+            id: "success_message",
+          },
+        ]);
+        setIsCreatingCourse(false);
       }
     }
+    setFlashItem([
+      {
+        type: "success",
+        content: successMes,
+        dismissible: true,
+        dismissLabel: "Dismiss message",
+        onDismiss: () => setFlashItem([]),
+        id: "success_message",
+      },
+    ]);
     setIsCreatingCourse(false);
   };
 
@@ -309,7 +335,14 @@ function BatchManagement(props) {
             </Header>
           }
         >
-          <div>
+          <SpaceBetween direction="vertical" size="s">
+            <FormField label="Lecture folder" description="Folder contains just uploaded resources">
+              <Input
+                value={folder}
+                onChange={(event) => setFolder(event.detail.value)
+                }
+              />
+            </FormField>
             <Button
               variant="primary"
               loading={isCreatingLecture}
@@ -317,10 +350,7 @@ function BatchManagement(props) {
             >
               Create
             </Button>
-            <video id="myVideo" style={{ display: "none" }}>
-              <source src=""></source>
-            </video>
-          </div>
+          </SpaceBetween>
         </Container>
 
         <Container

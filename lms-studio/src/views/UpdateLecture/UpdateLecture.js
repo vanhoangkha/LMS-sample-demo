@@ -70,6 +70,7 @@ function UpdateLecture(props) {
   const [videoMode, setVideoMode] = useState("s3");
 
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     setNewLecture({
@@ -964,7 +965,8 @@ function UpdateLecture(props) {
           isLoadingNextStep={newLecture.isLoadingNextStep}
           onSubmit={submitRequest}
           onCancel={() =>
-            setNewLecture({ ...newLecture, redirectToHome: true })
+            // setNewLecture({ ...newLecture, redirectToHome: true })
+            navigate(-1)
           }
           onNavigate={({ detail }) =>
             setNewLecture({

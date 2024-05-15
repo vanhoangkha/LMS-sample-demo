@@ -84,6 +84,7 @@ function UpdateCourse(props) {
   const [flashItem, setFlashItem] = useState([]);
   const [chapterOrderVisible, setChapterOrderVisible] = useState(false);
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   const draggedItem = useRef(null);
   let draggedIdx;
@@ -324,7 +325,8 @@ function UpdateCourse(props) {
     let selectedLec = [...selectedLectures];
     newEditChapter.lectures.splice(index, 1);
     setNewCourse({ ...newCourse, editChapter: newEditChapter });
-    setSelectedLectures(selectedLec.splice(index, 1));
+    selectedLec.splice(index, 1)
+		setSelectedLectures(selectedLec);
   };
 
   const updateLectureForChapter = () => {
@@ -589,7 +591,8 @@ function UpdateCourse(props) {
               isLoadingNextStep={isLoadingNextStep}
               onSubmit={submitCourse}
               onCancel={() =>
-                setNewCourse({ ...newCourse, redirectToHome: true })
+                // setNewCourse({ ...newCourse, redirectToHome: true })
+                navigate(-1)
               }
               onNavigate={({ detail }) =>
                 setNewCourse({
@@ -870,7 +873,7 @@ function UpdateCourse(props) {
                                       variant="primary"
                                       onClick={updateLectureForChapter}
                                     >
-                                      Ok
+                                      OK
                                     </Button>
                                   </SpaceBetween>
                                 </Box>

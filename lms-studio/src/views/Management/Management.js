@@ -114,6 +114,7 @@ function Management(props) {
                         },
                       ],
                     },
+                    { type: "divider" },
                     { type: "link", text: "User", href: "user" },
                     { type: "link", text: "Leaderboard", href: "leaderboard" },
                     { type: "link", text: "Sale", href: "sale" },

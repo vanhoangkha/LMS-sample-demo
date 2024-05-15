@@ -222,7 +222,7 @@ app.get(path + hashKeyPath, function (req, res) {
   const params = {};
 
   try {
-    params[partitionKeyName] = convertUrlType(
+    params[partitionKeyName] = convertInfoType(
       req.params[partitionKeyName],
       partitionKeyType
     );
@@ -328,7 +328,7 @@ app.put(path + "/addAC" + aCPath, function (req, res) {
   const params = {};
   params[partitionKeyName] = req.params[partitionKeyName];
   try {
-    params[partitionKeyName] = convertUrlType(
+    params[partitionKeyName] = convertInfoType(
       req.params[partitionKeyName],
       partitionKeyType
     );
@@ -415,7 +415,7 @@ app.delete(path + "/object" + hashKeyPath + sortKeyPath, function (req, res) {
   const params = {};
   params[partitionKeyName] = req.params[partitionKeyName];
   try {
-    params[partitionKeyName] = convertUrlType(
+    params[partitionKeyName] = convertInfoType(
       req.params[partitionKeyName],
       partitionKeyType
     );
@@ -426,7 +426,7 @@ app.delete(path + "/object" + hashKeyPath + sortKeyPath, function (req, res) {
 
   if (hasSortKey) {
     try {
-      params[sortKeyName] = convertUrlType(
+      params[sortKeyName] = convertInfoType(
         req.params[sortKeyName],
         sortKeyType
       );
