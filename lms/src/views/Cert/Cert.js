@@ -1,6 +1,6 @@
 import React from 'react';
 import './Cert.css';
-import { API, Auth } from 'aws-amplify';
+import { API, Auth, Storage } from 'aws-amplify';
 import { Navigate } from "react-router-dom";
 import NavBar from '../../components/NavBar/NavBar';
 import Footer from '../../components/Footer/Footer';
@@ -26,12 +26,18 @@ class Cert extends React.Component {
             redirectToCourse: null,
             disabled: true,
             uiSet: {},
+            defaultThumb: null,
         };
     }
 
     componentDidMount() {
         getUISet().then((data) => {
             this.setState({ uiSet: data});
+            if (data.DefaultThumb){
+              Storage.get(data.DefaultThumb, {
+                level: "public",
+              }).then((res) => this.setState({ defaultThumb: res}));
+            }
           }).catch((error) => console.log(error));
 
         this.loadUserId(() => {
@@ -257,7 +263,7 @@ class Cert extends React.Component {
                         name="ticket"
                         className="cert-course-property-icon"
                       />{" "}
-                      {t("course.level")} {!!course.level ? course.level : ""}
+                      {t("common.level")} {!!course.level ? course.level : ""}
                     </div>
                     <div className="cert-course-property">
                       <Icon
@@ -265,7 +271,7 @@ class Cert extends React.Component {
                         name="check"
                         className="cert-course-property-icon"
                       />
-                      {t("course.category")}
+                      {t("common.category")}
                       {!!course.categories
                         ? course.categories.map((category, index) => (
                             <span key={index}>
@@ -286,14 +292,14 @@ class Cert extends React.Component {
                         name="status-pending"
                         className="cert-course-property-icon"
                       />
-                      {calcTimeBrief(course.length)}
+                      {calcTimeBrief(course.length, t("common.hour"), t("common.minute"))}
                     </div>
                     <div className="cert-course-desc">
                       {!!course.description ? course.description : ""}
                     </div>
                   </div>
                   <div className="cert-course-thumbnail">
-                    <img src={courseDefaultThumbnail} alt="Course Thumbnail" />
+                    <img src={this.state.defaultThumb || courseDefaultThumbnail} alt="Course Thumbnail" />
                   </div>
                   <div className="cert-course-separator" />
                   {/* <div className='cert-progress'>
@@ -304,7 +310,7 @@ class Cert extends React.Component {
                         </div> */}
                   <div className="cert-course-action">
                     <Button
-                      variant="primary"
+                      variant="normal"
                       className="cert-continue-btn"
                       onClick={() =>
                         this.setState({ redirectToCourse: course.id })
@@ -312,26 +318,12 @@ class Cert extends React.Component {
                     >
                       {t("cert.review")} <Icon name="external" />
                     </Button>
-                    {/* <Button variant="primary" className='btn-orange cert-continue-btn' onClick={() => this.setState({shareCertOpen: true})}>
+
+                    <Button variant="primary" className='btn-orange cert-continue-btn' onClick={() => this.setState({shareCertOpen: true})}>
                                 {t("cert.share")} <Icon name='share' />
-                            </Button> */}
-                    <button
-                      variant="primary"
-                      className="btn-normal"
-                      style={{
-                        background: `${this.state.uiSet?.MainColor}`,
-                        borderColor: `${this.state.uiSet?.MainColor}`,
-                        color: `${this.state.uiSet?.TextColor}`,
-                      }}
-                      onClick={() => this.redirectToCourse(course.id)}
-                    >
-                      <span>
-                        {t("cert.share")}
-                        <Icon name="share" className="rotate-180" />
-                      </span>
-                    </button>
+                    </Button>
                     <Button
-                      variant="primary"
+                      variant="normal"
                       className="cert-continue-btn"
                       onClick={this.downloadCert}
                     >
@@ -349,17 +341,17 @@ class Cert extends React.Component {
                       <div className="cert-view-container">
                         {/* <div>{this.state.cert.UserEmail}</div> */}
                         <canvas id="canvas"></canvas>
-                        <div className="cert-view-user-name">
+                      <div className="cert-view-user-name" style={{color: `${this.state.uiSet?.MainColor}`}}>
                           {this.state.cert.UserName}
                         </div>
-                        <div className="cert-view-course-name">
+                        <div className="cert-view-course-name" style={{color: `${this.state.uiSet?.MainColor}`}}>
                           {/* {(() => {
                                             let courseNameList = this.state.course.name.split("-");
                                             return courseNameList.pop().toUpperCase()
                                         })()} */}
                           {this.getCourseName()}
                         </div>
-                        <div className="cert-view-issued-date">
+                        <div className="cert-view-issued-date" style={{color: `${this.state.uiSet?.MainColor}`}}>
                           ISSUED DATE -{" "}
                           {this.state.cert
                             ? transformDateTime(
@@ -389,12 +381,12 @@ class Cert extends React.Component {
                       variant="primary"
                       onClick={() => this.setState({ shareCertOpen: false })}
                     >
-                      Ok
+                      {t("common.ok")}
                     </Button>
                   </SpaceBetween>
                 </Box>
               }
-              header="Share certificate"
+              header= {t("cert.share_header")}
             >
               <Button
                 variant="link"

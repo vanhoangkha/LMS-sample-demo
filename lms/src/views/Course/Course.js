@@ -1,7 +1,7 @@
 import React from 'react';
 import './Course.css';
 import { Navigate } from "react-router-dom";
-import { API } from 'aws-amplify';
+import { API, Storage } from 'aws-amplify';
 import { withTranslation } from "react-i18next";
 import { Grid, Button, Icon, ExpandableSection } from '@cloudscape-design/components';
 import courseDefaultThumbnail from '../../assets/images/course-default-thumbnail.png';
@@ -18,6 +18,7 @@ class Course extends React.Component {
             redirectToLearn: false,
             loading: true,
             uiSet: null,
+            defaultThumb: "",
         };
     }
 
@@ -52,6 +53,13 @@ class Course extends React.Component {
     componentDidMount() {
         getUISet().then((data) => {
             this.setState({ uiSet: data})
+            if (data.DefaultThumb){
+                Storage.get(data.DefaultThumb, {
+                  level: "public",
+                }).then((data) => {
+                    this.setState({ defaultThumb: data})
+                });
+            }
         });
         this.getCourse();
     }
@@ -93,7 +101,7 @@ class Course extends React.Component {
         return this.state.redirectToLearn ?
             <Navigate to={'/learn/' + course.id} /> :
             <div>
-                <NavBar navigation={this.props.navigation} title="Cloud Solutions Journey"/>
+                <NavBar navigation={this.props.navigation} title="Cloud Solutions Journey" uiSet={this.state.uiSet}/>
                 {this.state.loading ? <div className='course-main'>
                     <img src={loadingGif} alt="loading..." className='course-loading-gif' />
                 </div>
@@ -103,11 +111,11 @@ class Course extends React.Component {
                             {course.name}
                         </div>
                         <div className='course-property'>
-                            <Icon variant='subtle' name='ticket' className='course-property-icon'/>{t("course.level")} {course.level}
+                            <Icon variant='subtle' name='ticket' className='course-property-icon'/>{t("common.level")} {course.level}
                         </div>
                         <div className='course-property'>
                             <Icon variant='subtle' name='check' className='course-property-icon'/> 
-                            {t("course.category")} 
+                            {t("common.category")} 
                             {course.categories.map((category, index) => <span key={index}>{index !== 0 ? ', ' : ' '}<a href='/#'>{category}</a></span>)}
                         </div>
                         {/* <div className='course-property'>
@@ -117,14 +125,14 @@ class Course extends React.Component {
                         </div> */}
                         <div className='course-property'>
                             <Icon variant='subtle' name='status-pending' className='course-property-icon'/> 
-                            {calcTimeBrief(course.length)}
+                            {calcTimeBrief(course.length, t("common.hour"), t("common.minute"))}
                         </div>
                         <div className='course-desc'>
                             {course.description}
                         </div>
                     </div>
                     <div className='course-thumbnail'>
-                        <img src={courseDefaultThumbnail} alt='Course Thumbnail'/>
+                        <img src={this.state.defaultThumb || courseDefaultThumbnail} alt='Course Thumbnail'/>
                     </div>
 
                     <div className='course-separator' />
@@ -200,18 +208,9 @@ class Course extends React.Component {
                                         </div> */}
                                     </div>
                                     <div className='board-footer'>
-                                        {/* <Button variant='primary' className='btn-orange' onClick={() => this.openLearn()}>
-                                            Start Course
-                                        </Button> */}
-                                        <button 
-                                            className='btn-normal' 
-                                            style={{background: `${this.state.uiSet.MainColor}`, 
-                                                    borderColor: `${this.state.uiSet.MainColor}`, 
-                                                    color: `${this.state.uiSet.TextColor}`}} 
-                                            onClick={() => this.openLearn()}
-                                        >
+                                        <Button variant='primary' onClick={() => this.openLearn()}>
                                             {t("course.start")}
-                                        </button>
+                                        </Button>
                                     </div>
                                 </div>
                             </div>

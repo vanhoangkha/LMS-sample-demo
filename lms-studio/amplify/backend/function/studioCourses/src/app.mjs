@@ -343,7 +343,8 @@ app.put(path + "/addAC" + aCPath, function (req, res) {
     UpdateExpression: "ADD #acC :vals",
     ExpressionAttributeNames: { "#acC": "AccessCode" },
     ExpressionAttributeValues: {
-      ":vals": dynamodb.createSet([req.query["ac"]]),
+      // ":vals": dynamodb.createSet([req.query["ac"]]),
+      ":vals": dynamodb.createSet([req.query["ac"]])
     },
     ReturnValues: "UPDATED_NEW",
   };

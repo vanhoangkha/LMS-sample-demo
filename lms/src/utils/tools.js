@@ -27,13 +27,13 @@ export function calcTime(time) {
   return timeString;
 }
 
-export function calcTimeBrief(time) {
+export function calcTimeBrief(time, hour, minute) {
   let timeString = "";
   if (Math.floor(time / 3600) > 0) {
-    timeString = timeString + (Math.floor(time / 3600) + " hours ")
+    timeString = timeString + (Math.floor(time / 3600) + " " + hour + " ")
   }
   if( (time % 3600) / 60 > 0 ){
-    timeString = timeString + (Math.floor((time % 3600) / 60) + " minutes ")
+    timeString = timeString + (Math.floor((time % 3600) / 60) + " " + minute)
   }
   return timeString;
 }

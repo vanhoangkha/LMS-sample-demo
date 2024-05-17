@@ -3,12 +3,9 @@ import { Auth } from "aws-amplify";
 import { Navigate } from "react-router-dom";
 import { TopNavigation, Input } from "@cloudscape-design/components";
 import { withTranslation } from "react-i18next";
-import AWSLogo from "./Logo";
-import { calcTime } from "../../utils/tools";
-import { apiName, configUI } from "../../utils/api";
 import { API, Storage } from "aws-amplify";
-import { uiConfigId } from "../../utils/uiConfig";
 import { getUISet } from "../../utils/tools";
+import { setTheme } from "../../theme/theme"
 
 export class NavBar extends React.Component {
   constructor(props) {
@@ -48,14 +45,20 @@ export class NavBar extends React.Component {
         });
       });
 
-    getUISet().then((data) => {
-      this.setState({ uiSet: data });
-      if (data) {
-        Storage.get(data.Logo, { level: "public" }).then((res) => {
-          this.setState({ logo: res });
+      if (!this.props.uiSet){
+        getUISet().then((data) => {
+          this.setState({ uiSet: data });
+          if (data) {
+            Storage.get(data.Logo, { level: "public" }).then((res) => {
+              this.setState({ logo: res });
+            });
+            setTheme(data)
+          }
         });
+      }else {
+        this.setState({ uiSet: this.props.uiSet });
+        setTheme(this.props.uiSet)
       }
-    });
     // API.get(apiName, configUI + uiConfigId)
     //   .then((data) => {
     //     // console.log(data)

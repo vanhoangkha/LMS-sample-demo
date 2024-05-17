@@ -1,5 +1,14 @@
 {
   "translation": {
+    "common": {
+      "level": "Độ khó:",
+      "category": "Nhóm:",
+      "tag": "Nhãn:",
+      "ok": "OK",
+      "hour": "tiếng",
+      "minute": "phút",
+      "second": "giây"
+    },
     "nav": {
         "search": "Tìm kiếm",
         "signIn": "Đăng nhập",
@@ -59,9 +68,6 @@
       }
     },
     "course":{
-      "level": "Độ khó:",
-      "category": "Nhóm:",
-      "tag": "Nhãn:",
       "benefit": "Nội dung tóm tắt",
       "summerize": {
         "title": "Khoá học bao gồm",
@@ -69,7 +75,7 @@
         "lab": "bài tập"
       },
       "start": "Bắt đầu khoá học",
-      "content": "Nôi dung khoá học",
+      "content": "Nội dung khoá học",
       "requirement": "Yêu cầu"
     },
     "learn": {
@@ -83,7 +89,6 @@
       "retry": "Làm lại",
       "answer": "Trả lời",
       "next": "Tiếp theo",
-      "ok": "OK",
       "pass": "Chúc mừng bạn đã hoàn thành",
       "fail": "Cố gắng lần sau bạn nhé.",
       "complete": "Chúc mừng bạn đã hoàn thành",
@@ -93,6 +98,7 @@
       "docURL": "Link tài liệu"
     },
     "cert":{
+      "share_header": "Chia sẻ",
       "review": "Xem lại khoá học",
       "share": "Chia sẻ",
       "download": "Tải xuống"

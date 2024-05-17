@@ -1,5 +1,11 @@
 {
   "translation": {
+    "common": {
+      "level": "Level:",
+      "category": "Category:",
+      "tag": "Tag:",
+      "ok": "OK"
+    },
     "nav": {
       "search": "Search",
       "signIn": "Sign in",
@@ -63,9 +69,6 @@
       }
     },
     "course":{
-      "level": "Level:",
-      "category": "Category:",
-      "tag": "Tag:",
       "benefit": "What you'll learn",
       "summerize": {
         "title": "This couse includes",
