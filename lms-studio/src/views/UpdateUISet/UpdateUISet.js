@@ -38,14 +38,19 @@ export default function UpdateSetUI(props) {
   const [banner, setBanner] = useState([]);
   const [bannerIcon, setBannerIcon] = useState([]);
   const [logo, setLogo] = useState([]);
-  const [hlImage, setHlImage] = useState([]);
+  const [hlImage1, setHlImage1] = useState([]);
+  const [hlImage2, setHlImage2] = useState([]);
+  const [hlImage3, setHlImage3] = useState([]);
   const [mainColor, setMainColor] = useState("");
+  const [hoverColor, setHoverColor] = useState("");
   const [textColor, setTextColor] = useState("");
+  const [subTextColor, setSubTextColor] = useState("");
   const [highlight, setHighLight] = useState([
     { title: "", desc: "" },
     { title: "", desc: "" },
     { title: "", desc: "" },
   ]);
+  const [defaultThumb, setDefaultThumb] = useState([]);
   const [header, setHeader] = useState("");
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -67,7 +72,9 @@ export default function UpdateSetUI(props) {
     // setLogo(state.Logo);
     // setHlImage(state.HLImages);
     setMainColor(state.MainColor);
+    setHoverColor(state.HoverColor);
     setTextColor(state.TextColor);
+    setSubTextColor(state.subTextColor);
     setHighLight(state.Highlight);
     setHeader(state.WebTitle);
     setName(state.WebName);
@@ -85,9 +92,14 @@ export default function UpdateSetUI(props) {
       WebTitle: header,
       WebDesc: desc,
       Highlight: highlight,
-      HLImages: [],
+      HLImages: state.HLImages,
+      Banner: state.Banner,
+      BannerIcon: state.BannerIcon,
       MainColor: mainColor,
       TextColor: textColor,
+      HoverColor: hoverColor,
+      TextColor: textColor,
+      SubTextColor: subTextColor,
       Footer: {
         Left: leftFooter,
         Right: rightFooter
@@ -130,16 +142,52 @@ export default function UpdateSetUI(props) {
         jsonData.BannerIcon = s3KeyBannerIcon;
       }
 
-      for (let i = 0; i < hlImage.length; i++) {
-        var randomHL = Math.floor(Math.random() * 1000000);
-        const s3KeyHl =
+      if (defaultThumb.length > 0) {
+        var randomLogo = Math.floor(Math.random() * 1000000);
+        const s3KeyThumbnail =
           folderImage +
-          `${randomHL}-` +
-          `hl${i}-${hlImage[i].name.replace(/ /g, "_")}`;
-        await Storage.put(s3KeyHl, hlImage[i], {
+          `${randomLogo}-` +
+          `thumb-${defaultThumb[0].name.replace(/ /g, "_")}`;
+        await Storage.put(s3KeyThumbnail, defaultThumb[0], {
           level: "public",
         });
-        jsonData.HLImages.push(s3KeyHl);
+        jsonData.DefaultThumb = s3KeyThumbnail;
+      }
+
+      if (hlImage1.length > 0) {
+        var randomHL = Math.floor(Math.random() * 1000000);
+        const s3KeyHl1 =
+          folderImage +
+          `${randomHL}-` +
+          `hl${0}-${hlImage1[0].name.replace(/ /g, "_")}`;
+        await Storage.put(s3KeyHl1, hlImage1[0], {
+          level: "public",
+        });
+        jsonData.HLImages[0] = s3KeyHl1;
+      }
+
+      if (hlImage2.length > 0) {
+        var randomHL = Math.floor(Math.random() * 1000000);
+        const s3KeyHl2 =
+          folderImage +
+          `${randomHL}-` +
+          `hl${1}-${hlImage2[0].name.replace(/ /g, "_")}`;
+        await Storage.put(s3KeyHl2, hlImage2[0], {
+          level: "public",
+        });
+        jsonData.HLImages[1] = s3KeyHl2;
+      }
+
+      if (hlImage3.length > 0) {
+        var randomHL = Math.floor(Math.random() * 1000000);
+        const s3KeyHl3 =
+          folderImage +
+          `${randomHL}-` +
+          `hl${2}-${hlImage3[0].name.replace(/ /g, "_")}`;
+        await Storage.put(s3KeyHl3, hlImage3[0], {
+          level: "public",
+        });
+        jsonData.HLImages[2] = s3KeyHl3;
       }
 
       await API.put(apiName, uiConfigPath, { body: jsonData });
@@ -465,8 +513,81 @@ export default function UpdateSetUI(props) {
                         </FormField>
                         <FormField label="Highlight image">
                           <FileUpload
-                            onChange={({ detail }) => setHlImage(detail.value)}
-                            value={hlImage}
+                            onChange={({ detail }) => setHlImage1(detail.value)}
+                            value={hlImage1}
+                            i18nStrings={{
+                              uploadButtonText: (e) =>
+                                e ? "Choose files" : "Choose icon 1",
+                              dropzoneText: (e) =>
+                                e
+                                  ? "Drop files to upload"
+                                  : "Drop file to upload",
+                              removeFileAriaLabel: (e) =>
+                                `Remove file ${e + 1}`,
+                              limitShowFewer: "Show fewer files",
+                              limitShowMore: "Show more files",
+                              errorIconAriaLabel: "Error",
+                            }}
+                            showFileLastModified
+                            showFileSize
+                            showFileThumbnail
+                            tokenLimit={3}
+                            accept=".jpg,.jpeg,.png"
+                            constraintText=".jpg, .jpeg, .png"
+                          />
+
+                          <FileUpload
+                            onChange={({ detail }) => setHlImage2(detail.value)}
+                            value={hlImage2}
+                            i18nStrings={{
+                              uploadButtonText: (e) =>
+                                e ? "Choose files" : "Choose icon 2",
+                              dropzoneText: (e) =>
+                                e
+                                  ? "Drop files to upload"
+                                  : "Drop file to upload",
+                              removeFileAriaLabel: (e) =>
+                                `Remove file ${e + 1}`,
+                              limitShowFewer: "Show fewer files",
+                              limitShowMore: "Show more files",
+                              errorIconAriaLabel: "Error",
+                            }}
+                            showFileLastModified
+                            showFileSize
+                            showFileThumbnail
+                            tokenLimit={3}
+                            accept=".jpg,.jpeg,.png"
+                            constraintText=".jpg, .jpeg, .png"
+                          />
+
+                          <FileUpload
+                            onChange={({ detail }) => setHlImage3(detail.value)}
+                            value={hlImage3}
+                            i18nStrings={{
+                              uploadButtonText: (e) =>
+                                e ? "Choose files" : "Choose icon 3",
+                              dropzoneText: (e) =>
+                                e
+                                  ? "Drop files to upload"
+                                  : "Drop file to upload",
+                              removeFileAriaLabel: (e) =>
+                                `Remove file ${e + 1}`,
+                              limitShowFewer: "Show fewer files",
+                              limitShowMore: "Show more files",
+                              errorIconAriaLabel: "Error",
+                            }}
+                            showFileLastModified
+                            showFileSize
+                            showFileThumbnail
+                            tokenLimit={1}
+                            accept=".jpg,.jpeg,.png"
+                            constraintText=".jpg, .jpeg, .png"
+                          />
+                        </FormField>
+                        <FormField label="Default thumbnail" description={state.Logo ? "Current file: " + `${state.Logo.split("/")[2]}` : ""}>
+                          <FileUpload
+                            onChange={({ detail }) => setDefaultThumb(detail.value)}
+                            value={defaultThumb}
                             i18nStrings={{
                               uploadButtonText: (e) =>
                                 e ? "Choose files" : "Choose file",
@@ -484,7 +605,6 @@ export default function UpdateSetUI(props) {
                             showFileSize
                             showFileThumbnail
                             tokenLimit={3}
-                            multiple
                             accept=".jpg,.jpeg,.png"
                             constraintText=".jpg, .jpeg, .png"
                           />
@@ -513,6 +633,18 @@ export default function UpdateSetUI(props) {
                           />
                         </FormField>
                         <FormField
+                          label="Hover Color"
+                          description="Enter color code, example: #000000"
+                          stretch={true}
+                        >
+                          <Input
+                            onChange={({ detail }) =>
+                              setHoverColor(detail.value)
+                            }
+                            value={hoverColor}
+                          />
+                        </FormField>
+                        <FormField
                           label="Text Color"
                           description="Enter color code, example: #000000"
                           stretch={true}
@@ -522,6 +654,18 @@ export default function UpdateSetUI(props) {
                               setTextColor(detail.value)
                             }
                             value={textColor}
+                          />
+                        </FormField>
+                        <FormField
+                          label="Sub Text Color"
+                          description="Enter color code, example: #000000"
+                          stretch={true}
+                        >
+                          <Input
+                            onChange={({ detail }) =>
+                              subTextColor(detail.value)
+                            }
+                            value={setSubTextColor}
                           />
                         </FormField>
                       </SpaceBetween>
@@ -691,9 +835,9 @@ export default function UpdateSetUI(props) {
                           <ColumnLayout columns={1} variant="text-grid">
                             <div>
                               <Box variant="awsui-key-label">Highlight</Box>
-                              <div>{hlImage[0] ? hlImage[0].name : "—"}</div>
-                              <div>{hlImage[1] ? hlImage[1].name : "—"}</div>
-                              <div>{hlImage[2] ? hlImage[2].name : "—"}</div>
+                              <div>{hlImage1[0] ? hlImage1[0].name : "—"}</div>
+                              <div>{hlImage2[0] ? hlImage2[0].name : "—"}</div>
+                              <div>{hlImage3[0] ? hlImage3[0].name : "—"}</div>
                             </div>
                           </ColumnLayout>
                         </Container>

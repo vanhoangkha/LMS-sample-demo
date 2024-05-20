@@ -36,12 +36,16 @@ export default function CreateSetUI(props) {
   const [logo, setLogo] = useState([]);
   const [hlImage, setHlImage] = useState([]);
   const [mainColor, setMainColor] = useState("");
+  const [subColor, setSubColor] = useState("");
+  const [hoverColor, setHoverColor] = useState("");
   const [textColor, setTextColor] = useState("");
+  const [subTextColor, setSubTextColor] = useState("");
   const [highlight, setHighLight] = useState([
     { title: "", desc: "" },
     { title: "", desc: "" },
     { title: "", desc: "" },
   ]);
+  const [defaultThumb, setDefaultThumb] = useState([]);
   const [header, setHeader] = useState("");
   const [name, setName] = useState("");
   const [desc, setDesc] = useState("");
@@ -70,7 +74,9 @@ export default function CreateSetUI(props) {
       Banner: "",
       BannerIcon: "",
       MainColor: mainColor,
+      HoverColor: hoverColor,
       TextColor: textColor,
+      SubTextColor: subTextColor,
       Footer: {
         Left: leftFooter,
         Right: rightFooter
@@ -111,6 +117,18 @@ export default function CreateSetUI(props) {
           level: "public",
         });
         jsonData.BannerIcon = s3KeyBannerIcon;
+      }
+
+      if (defaultThumb.length > 0) {
+        var randomLogo = Math.floor(Math.random() * 1000000);
+        const s3KeyThumbnail =
+          folderImage +
+          `${randomLogo}-` +
+          `thumb-${defaultThumb[0].name.replace(/ /g, "_")}`;
+        await Storage.put(s3KeyThumbnail, defaultThumb[0], {
+          level: "public",
+        });
+        jsonData.DefaultThumb = s3KeyThumbnail;
       }
 
       for (let i = 0; i < hlImage.length; i++) {
@@ -431,6 +449,31 @@ export default function CreateSetUI(props) {
                             constraintText=".jpg, .jpeg, .png"
                           />
                         </FormField>
+                        <FormField label="Default thumbnail">
+                          <FileUpload
+                            onChange={({ detail }) => setDefaultThumb(detail.value)}
+                            value={defaultThumb}
+                            i18nStrings={{
+                              uploadButtonText: (e) =>
+                                e ? "Choose files" : "Choose file",
+                              dropzoneText: (e) =>
+                                e
+                                  ? "Drop files to upload"
+                                  : "Drop file to upload",
+                              removeFileAriaLabel: (e) =>
+                                `Remove file ${e + 1}`,
+                              limitShowFewer: "Show fewer files",
+                              limitShowMore: "Show more files",
+                              errorIconAriaLabel: "Error",
+                            }}
+                            showFileLastModified
+                            showFileSize
+                            showFileThumbnail
+                            tokenLimit={3}
+                            accept=".jpg,.jpeg,.png"
+                            constraintText=".jpg, .jpeg, .png"
+                          />
+                        </FormField>
                         <FormField label="Highlight image">
                           <FileUpload
                             onChange={({ detail }) => setHlImage(detail.value)}
@@ -481,6 +524,18 @@ export default function CreateSetUI(props) {
                           />
                         </FormField>
                         <FormField
+                          label="Hover Color"
+                          description="Enter color code, example: #000000"
+                          stretch={true}
+                        >
+                          <Input
+                            onChange={({ detail }) =>
+                              setHoverColor(detail.value)
+                            }
+                            value={hoverColor}
+                          />
+                        </FormField>
+                        <FormField
                           label="Text Color"
                           description="Enter color code, example: #000000"
                           stretch={true}
@@ -490,6 +545,18 @@ export default function CreateSetUI(props) {
                               setTextColor(detail.value)
                             }
                             value={textColor}
+                          />
+                        </FormField>
+                        <FormField
+                          label="Sub Text Color"
+                          description="Enter color code, example: #000000"
+                          stretch={true}
+                        >
+                          <Input
+                            onChange={({ detail }) =>
+                              subTextColor(detail.value)
+                            }
+                            value={setSubTextColor}
                           />
                         </FormField>
                       </SpaceBetween>
@@ -687,8 +754,16 @@ export default function CreateSetUI(props) {
                               <div>{mainColor ? mainColor : "—"}</div>
                             </div>
                             <div>
+                              <Box variant="awsui-key-label">Hover Color</Box>
+                              <div>{hoverColor ? hoverColor : "—"}</div>
+                            </div>
+                            <div>
                               <Box variant="awsui-key-label">Text color</Box>
                               <div>{textColor ? textColor : "—"}</div>
+                            </div>
+                            <div>
+                              <Box variant="awsui-key-label">Sub text color</Box>
+                              <div>{subTextColor ? subTextColor : "—"}</div>
                             </div>
                           </ColumnLayout>
                         </Container>
