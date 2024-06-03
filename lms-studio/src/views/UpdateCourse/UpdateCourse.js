@@ -402,7 +402,7 @@ function UpdateCourse(props) {
       State: "Enabled",
       Views: state.Views,
       LastUpdated: new Date().toISOString(),
-      AccessCode: new Set(),
+      AccessCode: state.AccessCode,
     };
     console.log(jsonData);
     const apiName = "lmsStudio";
@@ -414,16 +414,17 @@ function UpdateCourse(props) {
         ...newCourse,
         redirectToHome: true,
       });
-      setFlashItem([
-        {
-          type: "success",
-          content: successMes,
-          dismissible: true,
-          dismissLabel: "Dismiss message",
-          onDismiss: () => setFlashItem([]),
-          id: "success_message",
-        },
-      ]);
+      // setFlashItem([
+      //   {
+      //     type: "success",
+      //     content: successMes,
+      //     dismissible: true,
+      //     dismissLabel: "Dismiss message",
+      //     onDismiss: () => setFlashItem([]),
+      //     id: "success_message",
+      //   },
+      // ]);
+      navigate(-1)
     } catch (error) {
       setIsLoadingNextStep(false);
       setNewCourse({
