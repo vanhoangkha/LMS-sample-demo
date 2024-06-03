@@ -5,10 +5,18 @@
     "fieldName": "contributorID",
     "fieldType": "string"
   },
-  "sortKey": {
-    "fieldName": "views",
-    "fieldType": "number"
-  },
-  "gsi": [],
+  "gsi": [
+    {
+      "name": "views-index",
+      "partitionKey": {
+        "fieldName": "contributorID",
+        "fieldType": "string"
+      },
+      "sortKey": {
+        "fieldName": "views",
+        "fieldType": "number"
+      }
+    }
+  ],
   "triggerFunctions": []
 }

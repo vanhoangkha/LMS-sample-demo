@@ -389,7 +389,7 @@ function CreateCourse(props) {
     const apiName = "lmsStudio";
     const path = "/courses";
     try {
-      await API.post(apiName, path, { body: jsonData });
+      await API.put(apiName, path, { body: jsonData });
       setState({
         ...state,
         redirectToHome: true,

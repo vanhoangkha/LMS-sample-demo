@@ -5,10 +5,18 @@
     "fieldName": "CourseID",
     "fieldType": "string"
   },
-  "sortKey": {
-    "fieldName": "OppValue",
-    "fieldType": "number"
-  },
-  "gsi": [],
+  "gsi": [
+    {
+      "name": "oppValue-index",
+      "partitionKey": {
+        "fieldName": "CourseID",
+        "fieldType": "string"
+      },
+      "sortKey": {
+        "fieldName": "OppValue",
+        "fieldType": "number"
+      }
+    }
+  ],
   "triggerFunctions": []
 }

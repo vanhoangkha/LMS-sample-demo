@@ -26,6 +26,7 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 const userIdPresent = false; // TODO: update in case is required to use that definition
 const partitionKeyName = "CourseID";
 const partitionKeyType = "S";
+const oppValueIndex = "oppValue-index";
 const path = "/courseOpp";
 const hashKeyPath = "/:" + partitionKeyName;
 const UNAUTH = "UNAUTH";
@@ -55,6 +56,7 @@ const convertInfoType = (param, type) => {
 app.get(path + "/topOppValue", function (req, res) {
   let inputItemParams = {
     TableName: tableName,
+    IndexName: oppValueIndex,
     Limit: Number("5"),
   };
   let command = new ScanCommand(inputItemParams);

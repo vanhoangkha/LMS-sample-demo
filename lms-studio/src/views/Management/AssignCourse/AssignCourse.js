@@ -45,7 +45,7 @@ const AssignCourse = (props) => {
   const [buttonLoad, setButtonLoad] = useState(false);
   const [checked, setChecked] = useState(false);
   const [oppId, setOppId] = React.useState("");
-  const [oppValue, setOppValue] = React.useState("");
+  const [accessCode, setAccessCode] = React.useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [items, setItems] = useState([]);
   const [currentSelectedUsers, setCurrentSelectedUsers] = useState([]);
@@ -54,7 +54,7 @@ const AssignCourse = (props) => {
   // console.log("passed vars: " + JSON.stringify(prevState))
 
   const handlePutAssignCourse = async () => {
-    if (currentSelectedUsers === selectedUsers && !oppValue) {
+    if (currentSelectedUsers === selectedUsers && !accessCode) {
       return;
     }
 
@@ -80,7 +80,7 @@ const AssignCourse = (props) => {
         const staticData = {
           CourseID: state.ID,
           // OppID: oppId,
-          AccessCode: oppValue,
+          AccessCode: accessCode,
           Flexible: checked,
           Assign: "ASSIGNED",
           Status: "NOT_YET",
@@ -106,14 +106,15 @@ const AssignCourse = (props) => {
         await API.del(apiName, userCourse, { body: deleteUserCourseArray });
 
       }
-      if ( oppValue ){
+      if ( accessCode ){
         // Set access code for course
         courseCode = {
           CourseID: state.ID,
-          AccessCode: oppValue,
+          AccessCode: accessCode,
         };
         
-        await API.put(apiName, courseCodePath + addAccessCode + `?ac=${oppValue}`, {});
+        //set access code value
+        await API.put(apiName, coursePath + addAccessCode + `/${state.ID}`, { body: {accessCode: accessCode} });
       }
 
       setItems([
@@ -289,8 +290,8 @@ const AssignCourse = (props) => {
                       <ValueWithLabel label="Owner">{state.CreatorID}</ValueWithLabel>
                       <ValueWithLabel label="Opportunity Value">
                         <Input
-                          onChange={({ detail }) => setOppValue(detail.value)}
-                          value={oppValue}
+                          onChange={({ detail }) => setAccessCode(detail.value)}
+                          value={accessCode}
                         />
                       </ValueWithLabel>
                     </SpaceBetween>
@@ -488,8 +489,8 @@ const AssignCourse = (props) => {
                   </ValueWithLabel>
                   <ValueWithLabel label="Access code">
                     <Input
-                      onChange={({ detail }) => setOppValue(detail.value)}
-                      value={oppValue}
+                      onChange={({ detail }) => setAccessCode(detail.value)}
+                      value={accessCode}
                     />
                   </ValueWithLabel>
                 </SpaceBetween>

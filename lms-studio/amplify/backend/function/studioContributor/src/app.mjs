@@ -26,6 +26,7 @@ if (process.env.ENV && process.env.ENV !== "NONE") {
 const userIdPresent = false; // TODO: update in case is required to use that definition
 const partitionKeyName = "contributorID";
 const partitionKeyType = "S";
+const viewsIndex = "views-index";
 const path = "/contributor";
 const hashKeyPath = "/:" + partitionKeyName;
 const UNAUTH = "UNAUTH";
@@ -59,6 +60,7 @@ app.get('/item', function(req, res) {
 app.get(path + "/topContributor", function (req, res) {
   let getItemParams = {
     TableName: tableName,
+    IndexName: viewsIndex,
     Limit: Number("5"),
   };
   let command = new ScanCommand(getItemParams);

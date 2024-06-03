@@ -88,10 +88,10 @@ app.get(path, function (req, res) {
       lectureList = [...lectureList, ...data.Items];
       let resquest = data;
       while (resquest.LastEvaluatedKey) {
-        const command = {
+        const command = new ScanCommand({
           TableName: tableName,
           ExclusiveStartKey: response["LastEvaluatedKey"],
-        };
+        });
         docClient.send(command).then((data) => {
           lectureList = [...lectureList, ...data.Items];
           resquest = data;
@@ -194,7 +194,7 @@ app.get(path + "/topViews", function (req, res) {
   let scanParams = {
     TableName: tableName,
     IndexName: viewsIndex,
-    Limit: "10",
+    Limit: Number("10"),
   };
 
   const command = new ScanCommand(scanParams);

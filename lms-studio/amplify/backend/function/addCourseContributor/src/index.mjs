@@ -25,6 +25,7 @@ export const handler = async (event) => {
   try {
     let scanCommand = new ScanCommand(scanParams);
     const data = await docClient.send(scanCommand);
+    // separate follow by Creator 
     const groupedData = data.Items.reduce((acc, item) => {
       const groupKey = item.CreatorID;
       if (!acc[groupKey]) {
@@ -34,6 +35,7 @@ export const handler = async (event) => {
       return acc;
     }, {});
 
+    // count views
     if (groupedData) {
       for (const item in groupedData) {
         let countViews = 0;

@@ -46,7 +46,7 @@ export const handler = async (event) => {
         // );
         const valueCode = assCode.split("-")[1];
         if(valueCode){
-          value += parseInt(atob(valueCode));
+          value += parseInt(Buffer.from(valueCode, 'base64'));
         }
       }
       return {

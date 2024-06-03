@@ -263,6 +263,9 @@ app.put(path, function (req, res) {
       req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH;
   }
 
+  // create String set
+  req.body["AccessCode"] = new Set([""])
+
   let putItemParams = {
     TableName: tableName,
     Item: req.body,
@@ -324,7 +327,7 @@ app.post(path, function (req, res) {
   );
 });
 
-app.put(path + "/addAC" + aCPath, function (req, res) {
+app.put(path + "/addAC" + hashKeyPath, function (req, res) {
   const params = {};
   params[partitionKeyName] = req.params[partitionKeyName];
   try {
@@ -343,8 +346,7 @@ app.put(path + "/addAC" + aCPath, function (req, res) {
     UpdateExpression: "ADD #acC :vals",
     ExpressionAttributeNames: { "#acC": "AccessCode" },
     ExpressionAttributeValues: {
-      // ":vals": dynamodb.createSet([req.query["ac"]]),
-      ":vals": dynamodb.createSet([req.query["ac"]])
+      ":vals": new Set([req.body.accessCode])
     },
     ReturnValues: "UPDATED_NEW",
   };
@@ -355,6 +357,7 @@ app.put(path + "/addAC" + aCPath, function (req, res) {
       res.json({ success: req.body, url: req.url, data: data });
     },
     (err) => {
+      console.log(err);
       res.statusCode = 500;
       res.json({ error: err, info: req.info, body: req.body });
     }

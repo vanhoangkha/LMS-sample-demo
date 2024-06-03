@@ -75,16 +75,16 @@
         "AccessCode": {},
         "Categories": {},
         "Cert": {},
-        "Contributor": {},
         "CourseCode": {},
-        "CourseOpportunity": {},
         "FAQs": {},
         "Lectures": {},
         "UIConfig": {},
         "UserCourse": {},
         "UserLecture": {},
         "courses": {},
-        "lectureresource": {}
+        "lectureresource": {},
+        "Contributor": {},
+        "CourseOpportunity": {}
       }
     }
   }
