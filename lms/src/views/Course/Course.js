@@ -53,7 +53,7 @@ class Course extends React.Component {
     componentDidMount() {
         getUISet().then((data) => {
             this.setState({ uiSet: data})
-            if (data.DefaultThumb){
+            if (data?.DefaultThumb){
                 Storage.get(data.DefaultThumb, {
                   level: "public",
                 }).then((data) => {

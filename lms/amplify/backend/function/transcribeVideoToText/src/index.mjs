@@ -18,6 +18,7 @@ export const handler = async (event) => {
   ) {
     let jobName = key.split("/")[2];
     jobName = jobName.split(".")[0];
+    jobName = jobName.replace(/[^a-zA-Z ]/g, "");
     
     const params = {
       TranscriptionJobName: jobName,

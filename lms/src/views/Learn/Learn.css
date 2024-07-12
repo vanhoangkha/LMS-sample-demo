@@ -515,6 +515,11 @@ a.learn-fill-div:hover {
 
 .video-react-icon-transcript:before {
     content: "📄";
+    display: inline-block;
+    /* width: 5px;
+    height: 5px; */
+    zoom:60%;
+    padding: 12px
 }
 
 .video-react-icon-transcript:focus:before {
@@ -527,6 +532,22 @@ a.learn-fill-div:hover {
 
 .video-hidden {
     display: none !important;
+}
+
+.chat-layout {
+    height: calc(100vh - 350px);;
+}
+
+.chat-window {
+    padding-left: 30px;
+}
+
+.bot-window {
+    padding-right: 30px;
+}
+
+.chat-content {
+    height: calc(100% - 50px);
 }
 
 @media only screen and (max-width: 500px) {

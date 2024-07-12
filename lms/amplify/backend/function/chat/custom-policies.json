@@ -1,0 +1,10 @@
+[
+  {
+    "Action": [
+      "bedrock:RetrieveAndGenerate",
+      "bedrock:Retrieve",
+      "bedrock:InvokeModel"
+    ],
+    "Resource": ["*"]
+  }
+]

@@ -21,6 +21,10 @@ import {
   Tabs,
   Header,
   Icon,
+  Container,
+  Spinner,
+  Grid,
+  Textarea,
 } from "@cloudscape-design/components";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { csv } from "csvtojson";
@@ -60,6 +64,7 @@ import {
   userLecturePath,
   coursePath,
   lecturePath,
+  chatPath,
 } from "../../utils/api";
 
 import loadingGif from "../../assets/images/loading.gif";
@@ -246,8 +251,8 @@ class Trancription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isActive: false
-    }
+      isActive: false,
+    };
   }
 
   static getDerivedStateFromProps(props, state) {
@@ -260,29 +265,32 @@ class Trancription extends React.Component {
   }
 
   handleClick = (event) => {
-    console.log(this.props.actions)
-    if (!this.props.isOpenTranscript){
+    console.log(this.props.actions);
+    if (!this.props.isOpenTranscript) {
       // event.target.classList.add("video-react-icon-transcript-active");
       this.props.openTrans();
       // this.isActive.current = true;
-      this.setState({isActive: true})
-    }else{
+      this.setState({ isActive: true });
+    } else {
       // event.target.classList.remove("video-react-icon-transcript-active");
       this.props.closeTrans();
       // this.isActive.current = false;
-      this.setState({isActive: false})
+      this.setState({ isActive: false });
     }
-    
-  }
+  };
   render() {
     return (
-      <button className={!this.state.isActive ? "video-react-control video-react-button video-react-icon-transcript" : "video-react-control video-react-button video-react-icon-transcript video-react-icon-transcript-active"}
+      <button
+        className={
+          !this.state.isActive
+            ? "video-react-control video-react-button video-react-icon-transcript"
+            : "video-react-control video-react-button video-react-icon-transcript video-react-icon-transcript-active"
+        }
         onClick={(event) => this.handleClick(event)}
-      >
-      </button>
+      ></button>
     );
   }
-} 
+}
 
 class VideoContent extends React.Component {
   constructor(props) {
@@ -324,11 +332,15 @@ class VideoContent extends React.Component {
       iframe.height = "100%";
     }
 
-    window.addEventListener('resize', () => {
-      this.setState({
-          isMobile: window.innerWidth < 500
-      });
-    }, false);
+    window.addEventListener(
+      "resize",
+      () => {
+        this.setState({
+          isMobile: window.innerWidth < 500,
+        });
+      },
+      false
+    );
 
     // this.player.actions.toggleFullscreen = () => {
     //   this.props.handleFullScreen();
@@ -349,7 +361,7 @@ class VideoContent extends React.Component {
       this.setState({ isFullscreenEnabled: state.isFullscreen });
     }
     // this.props.setCurrentVideoTime(state.currentTime);
-    this.setState({ currentVideoTime: state.currentTime});
+    this.setState({ currentVideoTime: state.currentTime });
   }
 
   getVideoURL = async (key) => {
@@ -362,33 +374,31 @@ class VideoContent extends React.Component {
   };
 
   closeTrans = () => {
-    let videoEle = document.getElementsByClassName('lesson-video');
-    let transEle = document.getElementsByClassName('transcription');
+    let videoEle = document.getElementsByClassName("lesson-video");
+    let transEle = document.getElementsByClassName("transcription");
     transEle[0].style.display = "none";
     videoEle[0].style.width = "100%";
     this.setState({ isOpenTranscript: false });
-  }
+  };
 
   openTrans = () => {
-    let transEle = document.getElementsByClassName('transcription');
+    let transEle = document.getElementsByClassName("transcription");
     transEle[0].style.display = "block";
     this.setState({ isOpenTranscript: true });
-  }
+  };
 
   changeVideoTime = (startTime) => {
     this.player.seek(startTime);
   };
 
   render() {
-    const t = this.props.t
-    const classNames = [
-      'lesson-video',
-    ];
-    if ( !this.state.isFullscreenEnabled ){
-      classNames.push("learn-transparent-player")
+    const t = this.props.t;
+    const classNames = ["lesson-video"];
+    if (!this.state.isFullscreenEnabled) {
+      classNames.push("learn-transparent-player");
     }
-    if ( this.state.isMobile & this.state.isOpenTranscript ){
-      classNames.push("video-hidden")
+    if (this.state.isMobile & this.state.isOpenTranscript) {
+      classNames.push("video-hidden");
     }
 
     if (this.props.videoSrc) {
@@ -398,7 +408,7 @@ class VideoContent extends React.Component {
             ref={(player) => {
               this.player = player;
             }}
-            className={classNames.join(' ')}
+            className={classNames.join(" ")}
             autoPlay
             playsInline
             fluid={false}
@@ -416,12 +426,27 @@ class VideoContent extends React.Component {
                 order={7}
               />
               <VolumeMenuButton order={8} />
-              <Trancription openTrans={this.openTrans} closeTrans={this.closeTrans} isOpenTranscript={this.state.isOpenTranscript} order={9}></Trancription>
+              <Trancription
+                openTrans={this.openTrans}
+                closeTrans={this.closeTrans}
+                isOpenTranscript={this.state.isOpenTranscript}
+                order={9}
+              ></Trancription>
               {/* <FullscreenToggle disabled/> */}
             </ControlBar>
           </Player>
           <div className="transcription">
-            <Header variant="h3" actions={<div style={{cursor: "pointer"}} onClick={() => this.closeTrans()}><Icon name="close" /></div>} >
+            <Header
+              variant="h3"
+              actions={
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={() => this.closeTrans()}
+                >
+                  <Icon name="close" />
+                </div>
+              }
+            >
               {t("learn.transcription")}
             </Header>
             <span className="transcript">
@@ -1445,6 +1470,61 @@ class MainContent extends React.Component {
   }
 }
 
+const MessageList = ({ chat }) => {
+  console.log(chat);
+  return (
+    <SpaceBetween size="xs">
+      {chat.map((msg, i) => (
+        <ChatMessage key={i} msg={msg} />
+      ))}
+    </SpaceBetween>
+  );
+};
+
+const ChatMessage = ({ msg, key }) => {
+  const role = msg.role;
+  if (role === "user") return <UserMessage key={key} msg={msg} />;
+  if (role === "bot") return <BotMessage key={key} msg={msg} />;
+};
+
+const UserMessage = ({ msg }) => {
+  // const contentJSX = msg.content.map((item, i) => {
+  //   //const html_msg = converter.makeHtml(item.text)
+  //   // const html_msg = marked.parse(item.text, { renderer: renderer });
+
+  //   return (
+  //     <div
+  //       key={i}
+  //       // dangerouslySetInnerHTML={{ __html: html_msg }}
+  //     >
+  //       {item.text}
+  //     </div>
+  //   );
+  // });
+
+  return (
+    <div className="chat-window">
+      <Container
+      // disableGutters
+      // gridDefinition={[
+      //   { colspan: 11, offset: 1 },
+      //   { colspan: 5, offset: 7 },
+      // ]}
+      >
+        {msg.content}
+      </Container>
+    </div>
+  );
+};
+
+const BotMessage = ({ msg }) => {
+  return (
+    <div className="bot-window">
+      <Container>{msg.content}</Container>
+    </div>
+  );
+};
+
 class Learn extends React.Component {
   constructor(props) {
     super(props);
@@ -1463,6 +1543,9 @@ class Learn extends React.Component {
       completedLectures: [],
       currentVideoTime: 0,
       uiSet: null,
+      loadingMessage: false,
+      message: "",
+      chat: [],
     };
     this.playerChild = React.createRef();
     this.wordElement = React.createRef();
@@ -1940,7 +2023,7 @@ class Learn extends React.Component {
     let i = 0;
     let trancriptElement = [];
     console.log("load transcript");
-    if ( this.state.lecture.lecture.transcript ){
+    if (this.state.lecture.lecture.transcript) {
       Storage.get(this.state.lecture.lecture.transcript, {
         level: "public",
       }).then((data) => {
@@ -1961,7 +2044,7 @@ class Learn extends React.Component {
                   i += 1;
                   continue;
                 }
-  
+
                 if (
                   json.results.items[i + 1].alternatives[0].content === "," ||
                   json.results.items[i + 1].alternatives[0].content === "."
@@ -1999,6 +2082,91 @@ class Learn extends React.Component {
 
   setCurrentVideoTime = (time) => {
     this.setState({ currentVideoTime: time });
+  };
+
+  sendText = async () => {
+    if (this.state.message || this.state.message !== `\\n`) {
+      const reqMessage = this.state.message;
+      this.setState({ loadingMessage: true,  message: "",});
+      this.setState((prevState) => {
+        return {
+          ...prevState,
+          chat: [
+            ...prevState.chat,
+            { role: "user", content: reqMessage },
+          ],
+        };
+      });
+      this.getAnswer(reqMessage);
+    }
+  };
+
+  getAnswer = (question) => {
+    API.post(apiName, chatPath, { body: { message: question } })
+      .then((response) => {
+        console.log(response);
+        this.setState((prevState) => {
+          return {
+            ...prevState,
+            chat: [...prevState.chat, { role: "bot", content: response }],
+            loadingMessage: false,
+          };
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+        this.setState({ loadingMessage: false });
+      });
+  };
+
+  processKeyUp = (keyCode) => {
+    if (keyCode === 13) this.sendText();
+  };
+
+  renderChat = (t) => {
+    const childRef = React.createRef(null);
+    const childRef2 = React.createRef(null);
+    const childRef3 = React.createRef(null);
+    return (
+      <div className="chat-layout">
+        <h4 variant="h4">{t("learn.conversation")}</h4>
+        <div className="chat-content">
+          <Box>
+            {this.state.chat.length ? (
+              <>
+                <MessageList chat={this.state.chat} />
+                {this.state.loadingMessage ? <Spinner /> : null}
+              </>
+            ) : null}
+          </Box>
+        </div>
+        <SpaceBetween size="xs">
+          <Textarea
+            fitHeight
+            onBlur={childRef3?.current?.focus()}
+            ref={childRef3}
+            placeholder={t("learn.chatPlaceHolder")}
+            onChange={({ detail }) => {
+              this.setState({ message: detail.value });
+            }}
+            onKeyUp={(event) => this.processKeyUp(event.detail.keyCode)}
+            value={this.state.message}
+            autoFocus
+            disabled={this.state.loadingMessage}
+            inputMode="text"
+          />
+          <Button
+            fullWidth
+            key={2}
+            loading={this.state.loadingMessage}
+            onClick={this.sendText}
+            variant="primary"
+          >
+            {t("learn.send")}
+          </Button>
+        </SpaceBetween>
+      </div>
+    );
   };
 
   render() {
@@ -2067,7 +2235,12 @@ class Learn extends React.Component {
                               {t("learn.lectures")} <IoCheckmarkSharp />
                             </span>
                           ) : (
-                            <span className="learn-navigation-progress" style={{color: `${this.state.uiSet?.HoverColor}`}}>
+                            <span
+                              className="learn-navigation-progress"
+                              style={{
+                                color: `${this.state.uiSet?.HoverColor}`,
+                              }}
+                            >
                               {t("learn.completeLesson")}{" "}
                               {this.state.completedLectures.length}{" "}
                               {t("learn.outOf")}{" "}
@@ -2176,14 +2349,14 @@ class Learn extends React.Component {
           }
           tools={
             <HelpPanel header={<h2>{t("learn.more")}</h2>}>
-              {/* <Tabs
+              <Tabs
                 tabs={[
                   {
                     label: "References",
                     id: "refer",
                     content: (
                       <div>
-                        <h4>{t("learn.document")}</h4>
+                        <h5>{t("learn.document")}</h5>
                         <ul>
                           {this.state.lecture.lecture ? (
                             this.state.lecture.lecture.referDocs.map((item) => {
@@ -2220,63 +2393,19 @@ class Learn extends React.Component {
                     ),
                   },
                   {
-                    label: "Transcription",
-                    id: "transcript",
-                    content: (
-                      <>
-                        <span className="transcript">
-                          {this.state.lecture.transcript
-                            ? this.state.lecture.transcript.map(
-                                (item, index) => {
-                                  return (
-                                    <div
-                                      ref={
-                                        this.state.currentVideoTime >=
-                                          item.start_time &&
-                                        this.state.currentVideoTime <=
-                                          item.end_time
-                                          ? this.wordElement
-                                          : null
-                                      }
-                                      key={index}
-                                      className="trans-word"
-                                      onClick={(e) =>
-                                        this.changeVideoTime(item.start_time)
-                                      }
-                                    >
-                                      <span
-                                        className={
-                                          this.state.currentVideoTime >=
-                                            item.start_time &&
-                                          this.state.currentVideoTime <=
-                                            item.end_time
-                                            ? "bg-yellow-500"
-                                            : ""
-                                        }
-                                      >
-                                        {item.alternatives[0].content === "," ||
-                                        item.alternatives[0].content === "."
-                                          ? item.alternatives[0].content
-                                          : " " + item.alternatives[0].content}
-                                      </span>
-                                    </div>
-                                  );
-                                }
-                              )
-                            : ""}
-                        </span>
-                      </>
-                    ),
+                    label: t("learn.chat"),
+                    id: "chat",
+                    content: <>{this.renderChat(t)}</>,
                   },
-                  {
-                    label: "Third tab label",
-                    id: "third",
-                    content: "Third tab content area",
-                    disabled: true,
-                  },
+                  // {
+                  //   label: "Third tab label",
+                  //   id: "third",
+                  //   content: "Third tab content area",
+                  //   disabled: true,
+                  // },
                 ]}
-              /> */}
-              <div>
+              />
+              {/* <div>
                 <h4>{t("learn.document")}</h4>
                 <ul>
                   {this.state.lecture.lecture ? (
@@ -2306,7 +2435,7 @@ class Learn extends React.Component {
                     <></>
                   )}
                 </ul>
-              </div>
+              </div> */}
             </HelpPanel>
           }
           content={
@@ -2385,4 +2514,4 @@ class Learn extends React.Component {
   }
 }
 
-export default withTranslation()(Learn)
+export default withTranslation()(Learn);

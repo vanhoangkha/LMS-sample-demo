@@ -4,7 +4,10 @@
       "level": "Level:",
       "category": "Category:",
       "tag": "Tag:",
-      "ok": "OK"
+      "ok": "OK",
+      "hour": "hour",
+      "minute": "minute",
+      "second": "second"
     },
     "nav": {
       "search": "Search",
@@ -94,9 +97,14 @@
       "pass": "Congratulation! You passed the quiz.",
       "fail": "Unfortunately you didn't pass. Keep trying!",
       "complete": "Congratulations on completing the quiz",
+      "transcription": "Transcription",
       "more": "More",
       "document": "Document",
-      "docURL": "Document URL"
+      "docURL": "Document URL",
+      "chat": "Chat",
+      "conversation": "Conversation",
+      "chatPlaceHolder": "Enter your question",
+      "send": "Send"
     },
     "cert":{
       "review": "Review course",

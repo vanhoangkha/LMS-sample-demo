@@ -1,0 +1,9 @@
+{
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "knowledgeBaseId",
+      "environmentVariableName": "KNOWLEDGE_BASE_ID"
+    }
+  ]
+}

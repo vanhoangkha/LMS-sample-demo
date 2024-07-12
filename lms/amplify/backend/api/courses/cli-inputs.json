@@ -81,6 +81,13 @@
       "permissions": {
         "setting": "open"
       }
+    },
+    "/chat": {
+      "name": "/chat",
+      "lambdaFunction": "chat",
+      "permissions": {
+        "setting": "open"
+      }
     }
   }
 }

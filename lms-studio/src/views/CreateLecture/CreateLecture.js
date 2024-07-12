@@ -143,9 +143,10 @@ class CreateLecture extends React.Component {
   writeLectureToDB = async (lectureContent) => {
     // console.log(lectureContent)
     let transcription = "";
-    if (lectureContent) {
+    if (this.state.lectureVideo[0]) {
       transcription = lectureContent.split("/")[1];
       transcription = transcription.split(".")[0];
+      transcription = transcription.replace(/[^a-zA-Z ]/g, "");
       transcription = "transcription/" + transcription + ".json";
     }
 

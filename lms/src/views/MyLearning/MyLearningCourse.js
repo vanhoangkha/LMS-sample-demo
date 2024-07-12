@@ -97,6 +97,7 @@ class MyLearningCourse extends React.Component {
 
     render() {
         let course = this.state.course;
+        // const t = this.props.t;
         const { t } = this.props;
         return !!this.state.redirectToCert ? (
           <Navigate to={"/cert/" + course.id} />
@@ -126,7 +127,7 @@ class MyLearningCourse extends React.Component {
                   name="ticket"
                   className="mylearning-course-property-icon"
                 />{" "}
-                {t("course.level")} {!!course.level ? course.level : ""}
+                {t("common.level")} {!!course.level ? course.level : ""}
               </div>
               <div className="mylearning-course-property">
                 <Icon
@@ -134,7 +135,7 @@ class MyLearningCourse extends React.Component {
                   name="check"
                   className="mylearning-course-property-icon"
                 />
-                {t("course.category")}
+                {t("common.category")}
                 {!!course.categories
                   ? course.categories.map((category, index) => (
                       <span key={index}>
@@ -150,7 +151,7 @@ class MyLearningCourse extends React.Component {
                   name="check"
                   className="mylearning-course-property-icon"
                 />
-                {t("course.tag")}
+                {t("common.tag")}
                 {!!course.tags
                   ? course.tags.map((tag, index) => (
                       <span key={index}>
@@ -166,7 +167,7 @@ class MyLearningCourse extends React.Component {
                   name="status-pending"
                   className="mylearning-course-property-icon"
                 />
-                {calcTimeBrief(course.length)}
+                {calcTimeBrief(course.length, t("common.hour"), t("common.minute"))}
               </div>
               <div className="mylearning-course-desc">
                 {!!course.description ? course.description : ""}
@@ -219,7 +220,7 @@ class MyLearningCourse extends React.Component {
                   borderColor: `${this.props.uiSet?.MainColor}`,
                   color: `${this.props.uiSet?.TextColor}`,
                 }}
-                onClick={() => this.redirectToCourse(course.id)}
+                onClick={() => this.setState({ redirectToLearn: true})}
               >
                 <span>
                   {t("mylearning.continue")} <Icon name="arrow-left" className="rotate-180" />

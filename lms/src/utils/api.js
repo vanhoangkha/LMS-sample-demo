@@ -12,4 +12,5 @@ export const configUI = "/configUI/"
 export const usersPath = "/users/"
 export const fqasPath = "/faqs/"
 export const uiConfig = "/uiConfig/"
+export const chatPath = "/chat"
 

@@ -95,7 +95,11 @@
       "transcription": "Phiên mã",
       "more": "Bổ sung",
       "document": "Tài liệu",
-      "docURL": "Link tài liệu"
+      "docURL": "Link tài liệu",
+      "chat": "Trợ giúp",
+      "conversation": "Hội thoại",
+      "chatPlaceHolder": "Nhập câu hỏi của bạn",
+      "send": "Gửi"
     },
     "cert":{
       "share_header": "Chia sẻ",

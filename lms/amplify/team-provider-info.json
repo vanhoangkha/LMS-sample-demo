@@ -60,7 +60,12 @@
         "Categories": {},
         "Cert": {},
         "Lectures": {},
-        "UserLecture": {}
+        "UserLecture": {},
+        "chat": {
+          "knowledgeBaseId": "P0PZ2JTZFL",
+          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "s3Key": "amplify-builds/chat-41434569734e4f41527a-build.zip"
+        }
       },
       "hosting": {
         "amplifyhosting": {

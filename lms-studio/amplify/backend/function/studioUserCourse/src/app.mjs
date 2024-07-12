@@ -183,16 +183,13 @@ app.put(path, function (req, res) {
     };
 
     const command = new PutCommand(putItemParams);
-    return new Promise((resolve, reject) => {
-      docClient.send(command).then((data) => {
-        console.log(data);
-        resolve(data);
-      }),
+    return docClient.send(command).promise().then((data) => {
+        return data
+      },
       (err) => {
-        console.log(err);
-           reject(err);
-         };
-     });
+        return err
+      }
+    );
   });
 
   Promise.all(promises).then(function (results) {
@@ -218,16 +215,14 @@ app.delete(path, function (req, res) {
 
     const command = new DeleteCommand(removeItemParams);
 
-    return new Promise((resolve, reject) => {
-      docClient.send(command).then(
+    return docClient.send(command).promise().then(
         (data) => {
-          resolve(data);
+          return data;
         },
         (err) => {
-          reject(err);
-         }
-       );
-      })
+          return err;
+        }
+      );
   });
 
   Promise.all(promises).then(function (results) {
