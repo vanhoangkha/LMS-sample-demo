@@ -2392,11 +2392,11 @@ class Learn extends React.Component {
                       </div>
                     ),
                   },
-                  {
-                    label: t("learn.chat"),
-                    id: "chat",
-                    content: <>{this.renderChat(t)}</>,
-                  },
+                  // {
+                  //   label: t("learn.chat"),
+                  //   id: "chat",
+                  //   content: <>{this.renderChat(t)}</>,
+                  // },
                   // {
                   //   label: "Third tab label",
                   //   id: "third",

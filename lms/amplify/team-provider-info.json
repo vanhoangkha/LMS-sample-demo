@@ -1,16 +1,16 @@
 {
-  "dev": {
+  "lmsspecial": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-lmsdev-dev-dce28-authRole",
-      "UnauthRoleArn": "arn:aws:iam::340879421878:role/amplify-lmsdev-dev-dce28-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::340879421878:role/amplify-lmsdev-dev-dce28-authRole",
+      "AuthRoleName": "amplify-lmsdev-lmsspecial-8c84b-authRole",
+      "UnauthRoleArn": "arn:aws:iam::340879421878:role/amplify-lmsdev-lmsspecial-8c84b-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::340879421878:role/amplify-lmsdev-lmsspecial-8c84b-authRole",
       "Region": "ap-southeast-1",
-      "DeploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
-      "UnauthRoleName": "amplify-lmsdev-dev-dce28-unauthRole",
-      "StackName": "amplify-lmsdev-dev-dce28",
-      "StackId": "arn:aws:cloudformation:ap-southeast-1:340879421878:stack/amplify-lmsdev-dev-dce28/275f6710-f260-11ee-aa76-06176ca3f075",
-      "AmplifyAppId": "d9eqh4mu7i8n7",
-      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-lmsdev-dev-dce28-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
+      "DeploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
+      "UnauthRoleName": "amplify-lmsdev-lmsspecial-8c84b-unauthRole",
+      "StackName": "amplify-lmsdev-lmsspecial-8c84b",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:340879421878:stack/amplify-lmsdev-lmsspecial-8c84b/63b353c0-8ac2-11ef-a24d-02a4c0b63095",
+      "AmplifyAppId": "d30oqf6r7zs1ok",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-lmsdev-lmsspecial-8c84b-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
@@ -18,58 +18,53 @@
       },
       "function": {
         "FAQs": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/FAQs-7072546f43463265794f-build.zip"
         },
         "UserCourse": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/UserCourse-4a644d34354976337171-build.zip"
         },
         "categories": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/categories-39477455346f73694930-build.zip"
         },
         "certs": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/certs-764f3141714f76417654-build.zip"
         },
         "courses": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/courses-7531426b6864374b5351-build.zip"
         },
         "lectures": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/lectures-3465784f316e63486747-build.zip"
         },
         "transcribeVideoToText": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
-          "s3Key": "amplify-builds/transcribeVideoToText-6469584b72495a64344b-build.zip"
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
+          "s3Key": "amplify-builds/transcribeVideoToText-4467654135336f683350-build.zip"
         },
         "uiConfig": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/uiConfig-706c7478585447793331-build.zip"
         },
         "users": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/users-77456a704a6151793734-build.zip"
         },
         "usersLectures": {
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
+          "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
           "s3Key": "amplify-builds/usersLectures-6c2b6848632b62616e66-build.zip"
         },
         "Categories": {},
         "Cert": {},
         "Lectures": {},
-        "UserLecture": {},
-        "chat": {
-          "knowledgeBaseId": "P0PZ2JTZFL",
-          "deploymentBucketName": "amplify-lmsdev-dev-dce28-deployment",
-          "s3Key": "amplify-builds/chat-41434569734e4f41527a-build.zip"
-        }
+        "UserLecture": {}
       },
       "hosting": {
         "amplifyhosting": {
-          "appId": "d9eqh4mu7i8n7",
+          "appId": "d30oqf6r7zs1ok",
           "type": "manual"
         }
       },
@@ -80,16 +75,16 @@
         "AccessCode": {},
         "Categories": {},
         "Cert": {},
+        "Contributor": {},
         "CourseCode": {},
+        "CourseOpportunity": {},
         "FAQs": {},
         "Lectures": {},
         "UIConfig": {},
         "UserCourse": {},
         "UserLecture": {},
         "courses": {},
-        "lectureresource": {},
-        "Contributor": {},
-        "CourseOpportunity": {}
+        "lectureresource": {}
       }
     }
   }

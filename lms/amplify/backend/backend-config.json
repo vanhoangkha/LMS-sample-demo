@@ -73,14 +73,6 @@
           ],
           "category": "function",
           "resourceName": "FAQs"
-        },
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "chat"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -175,12 +167,6 @@
           "resourceName": "Cert"
         }
       ],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
-    "chat": {
-      "build": true,
-      "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
@@ -326,30 +312,6 @@
         {
           "category": "function",
           "resourceName": "certs"
-        }
-      ]
-    },
-    "AMPLIFY_function_chat_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "chat"
-        }
-      ]
-    },
-    "AMPLIFY_function_chat_knowledgeBaseId": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "chat"
-        }
-      ]
-    },
-    "AMPLIFY_function_chat_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "chat"
         }
       ]
     },
