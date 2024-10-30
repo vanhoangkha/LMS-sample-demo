@@ -69,6 +69,7 @@ function CreateCourse(props) {
     whatToLearn: [],
     level: "",
     publicity: false,
+    priority: 100000,
     difficulty: false,
     length: 0,
     currentRequirement: "",
@@ -378,6 +379,7 @@ function CreateCourse(props) {
         Requirements: state.requirements,
         Difficulty: state.difficulty,
         Publicity: state.publicity ? 1 : 0,
+        Priority: state.priority,
         WhatToLearn: state.whatToLearn,
         Chapters: state.chapters,
         State: "Enabled",
@@ -642,6 +644,17 @@ function CreateCourse(props) {
                                 setState({
                                   ...state,
                                   level: event.detail.value,
+                                })
+                              }
+                            />
+                          </FormField>
+                          <FormField label="Priority" description="The highest priority is 1">
+                            <Input
+                              value={state.priority}
+                              onChange={(event) =>
+                                setState({
+                                  ...state,
+                                  priority: event.detail.value,
                                 })
                               }
                             />
@@ -1072,6 +1085,12 @@ function CreateCourse(props) {
                                 <div>
                                   <Box variant="awsui-key-label">Level</Box>
                                   <div>{state.level}</div>
+                                </div>
+                              </ColumnLayout>
+                              <ColumnLayout columns={1} variant="text-grid">
+                                <div>
+                                  <Box variant="awsui-key-label">Priority</Box>
+                                  <div>{state.priority}</div>
                                 </div>
                               </ColumnLayout>
                             </Container>

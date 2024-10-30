@@ -7,13 +7,6 @@
   },
   "gsi": [
     {
-      "name": "Publicity-index",
-      "partitionKey": {
-        "fieldName": "Publicity",
-        "fieldType": "number"
-      }
-    },
-    {
       "name": "CreatorID-index",
       "partitionKey": {
         "fieldName": "CreatorID",
@@ -28,6 +21,17 @@
       },
       "sortKey": {
         "fieldName": "Views",
+        "fieldType": "number"
+      }
+    },
+    {
+      "name": "Publicity-index",
+      "partitionKey": {
+        "fieldName": "Publicity",
+        "fieldType": "number"
+      },
+      "sortKey": {
+        "fieldName": "Priority",
         "fieldType": "number"
       }
     }

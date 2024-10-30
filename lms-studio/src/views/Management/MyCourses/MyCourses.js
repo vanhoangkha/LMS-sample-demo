@@ -281,7 +281,7 @@ const MyCourses = () => {
                 >
                   Actions
                 </ButtonDropdown>
-                <Button variant="primary" href="/#/course/createCourse">Create Course</Button>
+                <Button className="btn-orange" variant="primary" href="/#/course/createCourse">Create Course</Button>
               </SpaceBetween>
             }
           >

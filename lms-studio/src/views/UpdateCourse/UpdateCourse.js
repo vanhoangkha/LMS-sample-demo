@@ -60,6 +60,7 @@ function UpdateCourse(props) {
     currentBenefit: "",
     whatToLearn: [],
     level: "",
+    priority: 0,
     publicity: false,
     difficulty: false,
     length: 0,
@@ -149,6 +150,7 @@ function UpdateCourse(props) {
       name: state.Name,
       description: state.Description,
       level: state.Level,
+      priority: state.Priority,
       categories: str_categories,
       requirements: state.Requirements,
       publicity: state.Publicity === 1 ? true : false,
@@ -396,6 +398,7 @@ function UpdateCourse(props) {
       Categories: categories,
       Requirements: newCourse.requirements,
       Difficulty: newCourse.difficulty,
+      Priority: newCourse.priority,
       Publicity: newCourse.publicity ? 1 : 0,
       WhatToLearn: newCourse.whatToLearn,
       Chapters: newCourse.chapters,
@@ -659,6 +662,17 @@ function UpdateCourse(props) {
                             }
                           />
                         </FormField>
+                        <FormField label="Priority" description="The highest priority is 1">
+                            <Input
+                              value={newCourse.priority}
+                              onChange={(event) =>
+                                setNewCourse({
+                                  ...newCourse,
+                                  priority: event.detail.value,
+                                })
+                              }
+                            />
+                          </FormField>
                       </SpaceBetween>
                       <p>
                         <strong>Course Publicity</strong>
@@ -1120,6 +1134,12 @@ function UpdateCourse(props) {
                               <div>
                                 <Box variant="awsui-key-label">Level</Box>
                                 <div>{newCourse.level}</div>
+                              </div>
+                            </ColumnLayout>
+                            <ColumnLayout columns={1} variant="text-grid">
+                              <div>
+                                <Box variant="awsui-key-label">Priority</Box>
+                                <div>{newCourse.priority}</div>
                               </div>
                             </ColumnLayout>
                           </Container>
