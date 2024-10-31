@@ -21,9 +21,10 @@
 .dashboard-banner-desc {
   color: white;
   font-size: 18px;
-  color: #d5dbdb;
+  /* color: #d5dbdb; */
   line-height: 1.5;
   letter-spacing: 1.5;
+  background-color: rgba(0, 0, 0, 0.326);
 }
 
 .dashboard-banner-icon-container {

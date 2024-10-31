@@ -126,7 +126,7 @@ export class NavBar extends React.Component {
             href: "/",
             title: this.state.uiSet?.WebName
               ? this.state.uiSet.WebName
-              : "Cloud Solutions Journey",
+              : "AWS Special Force Portal",
             // logo: {
             //   src: this.state.logo ? this.state.logo : AWSLogo,
             //   alt: "AWS Logo",
