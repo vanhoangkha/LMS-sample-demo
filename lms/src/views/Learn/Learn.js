@@ -567,6 +567,7 @@ class QuizContent extends React.Component {
       quizStarted: false,
       quizDone: false,
       quizPassed: false,
+      rate: 0,
       currentQuestionAnswered: false,
       currentQuestion: 0,
       selectedAnswer: null,
@@ -878,7 +879,10 @@ class QuizContent extends React.Component {
         </div> */}
         <div className="learn-lab-content-desc learn-lab-content-quiz">
           {!this.state.quizStarted ? (
-            <div className="learn-lab-content-question">{this.props.desc}</div>
+            <div className="learn-lab-content-question">
+              {this.props.desc} 
+              <div>{t("learn.notice")}</div>
+            </div>
           ) : this.state.quizDone ? (
             this.state.quizPassed ? (
               <div className="learn-lab-content-question">
@@ -886,7 +890,7 @@ class QuizContent extends React.Component {
               </div>
             ) : (
               <div className="learn-lab-content-question">
-                {t("learn.fail")}
+                {t("learn.fail")} {this.state.rate*100}% ({this.state.correctedAnswer}/{this.state.questions.length})
               </div>
             )
           ) : !this.state.currentQuestionAnswered ? (
@@ -1063,7 +1067,8 @@ class QuizContent extends React.Component {
                     this.setState({
                       quizDone: true,
                       quizPassed:
-                        correctedAnswer === this.state.questions.length,
+                        correctedAnswer / this.state.questions.length >= 0.8,
+                      rate: correctedAnswer / this.state.questions.length
                     });
                   } else {
                     this.setState({
