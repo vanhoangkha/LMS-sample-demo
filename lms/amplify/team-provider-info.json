@@ -31,7 +31,7 @@
         },
         "certs": {
           "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
-          "s3Key": "amplify-builds/certs-764f3141714f76417654-build.zip"
+          "s3Key": "amplify-builds/certs-7031367a6136676f3669-build.zip"
         },
         "courses": {
           "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",

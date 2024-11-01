@@ -13,7 +13,7 @@ import awsServerlessExpressMiddleware from "aws-serverless-express/middleware.js
 const client = new DynamoDBClient({});
 const docClient = DynamoDBDocumentClient.from(client);
 
-const dynamodb = new AWS.DynamoDB.DocumentClient();
+//const dynamodb = new AWS.DynamoDB.DocumentClient();
 
 let tableName = "Cert";
 if (process.env.ENV && process.env.ENV !== "NONE") {

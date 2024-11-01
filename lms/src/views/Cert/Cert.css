@@ -146,7 +146,7 @@
     font-size: 40px;
     font-weight: bold;
     position: relative;
-    top: 270px;
+    top: 250px;
     font-family: Arial;
 }
 
@@ -156,7 +156,7 @@
     font-family: 'Amazon Ember';
     position: relative;
     color: white;
-    top: 340px;
+    top: 320px;
 }
 
 .cert-view-issued-date {
@@ -164,7 +164,7 @@
     position: relative;
     font-weight: 300;
     color: white;
-    top: 439px;
+    top: 440px;
 }
 
 .publiccert-view-container {

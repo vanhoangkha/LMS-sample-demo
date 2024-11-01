@@ -34,7 +34,7 @@ class Cert extends React.Component {
     componentDidMount() {
         getUISet().then((data) => {
             this.setState({ uiSet: data});
-            if (data.DefaultThumb){
+            if (data?.DefaultThumb){
               Storage.get(data.DefaultThumb, {
                 level: "public",
               }).then((res) => this.setState({ defaultThumb: res}));
@@ -130,6 +130,7 @@ class Cert extends React.Component {
     }
 
     generateCert() {
+        console.log(this.state)
         const apiName = 'courses';
         const path = '/certs';
         const myInit = {
@@ -168,9 +169,11 @@ class Cert extends React.Component {
     loadCourse() {
         const apiName = 'courses';
         const path = '/courses/' + window.location.hash.split('/')[2];
+        console.log(path)
         
         API.get(apiName, path)
             .then((response) => {
+                console.log(response)
                 this.setState({
                     course: {
                         id: response.ID,
@@ -215,18 +218,18 @@ class Cert extends React.Component {
             ctx.fillStyle = '#ec7211';
             ctx.fillText(this.state.cert.UserName, x, img.height / 2);
 
-            ctx.font = 'bold 60px Amazon Ember';
-            ctx.fillStyle = 'black';
-            ctx.fillText(this.getCourseName(), x, img.height/2 + 180);
+            ctx.font = 'bold 50px Amazon Ember';
+            ctx.fillStyle = 'white';
+            ctx.fillText(this.getCourseName(), x, img.height/2 + 250);
 
-            ctx.font = 'bold 20px Amazon Ember';
+            ctx.font = '25px Amazon Ember';
             let certURL = `https://${window.location.host}/#/certPublic/`;
             let issueDate = "ISSUED DATE - ";
             issueDate += this.state.cert ? transformDateTime(this.state.cert.CompletedTime).toUpperCase() : new Date().toDateString().toUpperCase();
             certURL += !!this.state.cert ? this.state.cert.ID : "";
             console.log(issueDate)
-            ctx.fillText(issueDate, x, img.height - 50);
-            ctx.fillText(certURL, x, img.height - 20);
+            ctx.fillText(issueDate, x, img.height - 117);
+            ctx.fillText(certURL, x, img.height - 50);
 
             
             const link = document.createElement("a");
