@@ -177,7 +177,7 @@
     border-radius: 10px;
     color: #ec7211;
     text-align: center;
-    /* object-fit: contain; */
+    object-fit: contain;
 }
 
 .publiccert-view-container .publiccert-view-container {
@@ -216,11 +216,11 @@
 
     .cert-view-user-name{
         font-size: 22px;
-        top: 220px;
+        top: 200px;
     }
     .cert-view-course-name {
         font-size: 14px;
-        top: 270px;
+        top: 260px;
     }
     
     .cert-view-issued-date {
@@ -258,15 +258,15 @@
 
     .cert-view-user-name{
         font-size: 20px;
-        top: 110px;
+        top: 100px;
     }
     .cert-view-course-name {
         font-size: 11px;
-        top: 135px;
+        top: 125px;
     }
     
     .cert-view-issued-date {
         font-size: 4px;
-        top: 180px;
+        top: 178px;
     }
 }
