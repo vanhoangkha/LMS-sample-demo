@@ -126,13 +126,16 @@ export class Home extends React.Component {
     }
   }
 
-  searchCourses = () => {
+  searchCourses = (key) => {
+    this.setState({ searchKey: key })
     let foundCourses = [];
+    let searchKey = key.toLowerCase();
     for (let i = 0; i < this.state.courses.length; i++) {
       if (
-        this.state.courses[i].name.toLowerCase().includes(this.state.searchKey)
+        this.state.courses[i].name.toLowerCase().includes(searchKey)
       ) {
         foundCourses.push(this.state.courses[i]);
+        // console.log(this.state.courses[i])
       }
     }
     this.setState({ foundCourses: foundCourses });
@@ -351,9 +354,9 @@ export class Home extends React.Component {
           href="/"
           navigation={this.props.navigation}
           title="Cloud Solutions Journey"
-          setSearchKey={(key) => this.setState({ searchKey: key })}
+          // setSearchKey={(key) => this.setState({ searchKey: key })}
           searchKey={this.state.searchKey}
-          searchCourse={() => this.searchCourses()}
+          searchCourse={(key) => this.searchCourses(key)}
         />
         <div className="dashboard-main">
           <div className="dashboard-banner">

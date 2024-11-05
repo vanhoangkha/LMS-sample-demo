@@ -139,8 +139,8 @@ export class NavBar extends React.Component {
               ariaLabel="Search"
               value={this.props.searchKey}
               onChange={({ detail }) => {
-                this.props.setSearchKey(detail.value);
-                this.props.searchCourse();
+                // this.props.setSearchKey(detail.value);
+                this.props.searchCourse(detail.value);
               }}
             />
           }
