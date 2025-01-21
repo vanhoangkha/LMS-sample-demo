@@ -51,7 +51,7 @@
         },
         "users": {
           "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
-          "s3Key": "amplify-builds/users-77456a704a6151793734-build.zip"
+          "s3Key": "amplify-builds/users-50466e7939564a546730-build.zip"
         },
         "usersLectures": {
           "deploymentBucketName": "amplify-lmsdev-lmsspecial-8c84b-deployment",
@@ -84,7 +84,9 @@
         "UserCourse": {},
         "UserLecture": {},
         "courses": {},
-        "lectureresource": {}
+        "lectureresource": {},
+        "Users": {},
+        "UserProgress": {}
       }
     }
   }

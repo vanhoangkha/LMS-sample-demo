@@ -23,6 +23,7 @@ class MyLearningCourse extends React.Component {
     }
 
     loadCourse() {
+        // console.log(this.props.courseId)
         const apiName = 'courses';
         const path = '/courses/' + this.props.courseId;
         this.setState({ loading: true })
@@ -52,13 +53,14 @@ class MyLearningCourse extends React.Component {
                 });
             })
             .catch((error) => {
-                console.log(error.response);
+                console.log(error);
                 this.setState({ loading: false })
             });
     }
     
     async loadUserId(callback) {
         let credentials = await Auth.currentUserCredentials();
+        console.log(credentials.identityId)
         this.setState({
             userId: credentials.identityId,
         }, callback)

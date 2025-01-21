@@ -1,40 +1,35 @@
-/*
-Copyright 2017 - 2017 Amazon.com, Inc. or its affiliates. All Rights Reserved.
-Licensed under the Apache License, Version 2.0 (the "License"). You may not use this file except in compliance with the License. A copy of the License is located at
-    http://aws.amazon.com/apache2.0/
-or in the "license" file accompanying this file. This file is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and limitations under the License.
-*/
-
+import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import {
-  CognitoIdentityProviderClient,
-  RevokeTokenCommand
-} from "@aws-sdk/client-cognito-identity-provider";
+  DynamoDBDocumentClient,
+  PutCommand,
+  GetCommand,
+  QueryCommand,
+  DeleteCommand,
+  UpdateCommand,
+} from "@aws-sdk/lib-dynamodb";
 
 import express from "express";
 import bodyParser from "body-parser";
 import awsServerlessExpressMiddleware from "aws-serverless-express/middleware.js";
 
-const client = new CognitoIdentityProviderClient({ });
-const clientId = "25q4fkglgfefobfa1iv2bo52ot";
+const client = new DynamoDBClient({});
+const docClient = DynamoDBDocumentClient.from(client);
+
+let tableName = "Users";
+if (process.env.ENV && process.env.ENV !== "NONE") {
+  tableName = tableName + "-" + process.env.ENV;
+}
+
+const userIdPresent = true; // TODO: update in case is required to use that definition
+const partitionKeyName = "UserID";
+const partitionKeyType = "S";
 const path = "/users";
-const token = "Token";
-const tokenKey = "/:" + token;
+const UNAUTH = "UNAUTH";
 
 // declare a new express app
 const app = express();
 app.use(bodyParser.json());
 app.use(awsServerlessExpressMiddleware.eventContext());
-// const found = false;
-// const nextToken = ""
-// const input = { // ListUserPoolsRequest
-//   NextToken: nextToken,
-//   MaxResults: 1, // required
-// };
-// while (found || nextToken){
-//   const response = await client.send(command);
-
-// }
 
 // Enable CORS for all methods
 app.use(function (req, res, next) {
@@ -43,26 +38,95 @@ app.use(function (req, res, next) {
   next();
 });
 
+// convert url string param to expected Type
+const convertUrlType = (param, type) => {
+  switch (type) {
+    case "N":
+      return Number.parseInt(param);
+    default:
+      return param;
+  }
+};
 
-app.get(path + tokenKey, function (req, res) {
-  console.log("req", req)
-  const input = {
-    // RevokeTokenRequest
-    Token: req.params[token], // required
-    ClientId: clientId, // required
-    // ClientSecret: clientSecret,
-  };
-  console.log("input", input)
-  const command = new RevokeTokenCommand(input);
-  client.send(command).then(
-    (data) => {
-      console.log(data);
-      res.json({success: 'get call succeed!', url: req.url});
+/********************************
+ * HTTP Get method for list objects *
+ ********************************/
+
+app.get(path, function (req, res) {
+  // const condition = {}
+  // condition[partitionKeyName] = {
+  //   ComparisonOperator: 'EQ'
+  // }
+  // if (userIdPresent && req.apiGateway) {
+  //   condition[partitionKeyName]['AttributeValueList'] = [req.apiGateway.event.requestContext.identity.cognitoIdentityId || UNAUTH ];
+  // } else {
+  //   try {
+  //     condition[partitionKeyName]['AttributeValueList'] = [ convertUrlType(req.params[partitionKeyName], partitionKeyType) ];
+  //   } catch(err) {
+  //     res.statusCode = 500;
+  //     res.json({error: 'Wrong column type ' + err});
+  //   }
+  // }
+  // let queryParams = {
+  //   TableName: tableName,
+  //   KeyConditions: condition
+  // }
+  // const command = new QueryCommand(queryParams);
+  // docClient.send(command).then(
+  //   (data) => {
+  //     res.json(data.Items);
+  //   },
+  //   (err) => {
+  //     console.log(err);
+  //     res.statusCode = 500;
+  //     res.json({ error: "Could not load items: " + err });
+  //   }
+  // );
+});
+
+app.put(path, function (req, res) {
+  if (userIdPresent) {
+  }
+
+  let getItemParams = {
+    TableName: tableName,
+    Key: {
+      UserID: req.body["UserID"],
     },
-    (error) => {
-      console.log(error);
+  };
+  let getCommand = new GetCommand(getItemParams);
+
+  docClient.send(getCommand).then(
+    (data) => {
+      if (data.Item) {
+        let putItemParams = {
+          TableName: tableName,
+          Item: req.body,
+        };
+
+        const command = new PutCommand(putItemParams);
+        docClient.send(command).then(
+          (data) => {
+            res.json({
+              success: "put call succeed!",
+              url: req.url,
+              data: data,
+            });
+          },
+          (err) => {
+            console.log(err)
+            res.statusCode = 500;
+            res.json({ error: err, info: req.info, body: req.body });
+          }
+        );
+      } else {
+        res.json({ success: "put call succeed!", url: req.url, data: data });
+      }
+    },
+    (err) => {
+      console.log(err)
       res.statusCode = 500;
-      res.json({ error: "Could not load items: " + error });
+      res.json({ error: err, info: req.info, body: req.body });
     }
   );
 });

@@ -13,10 +13,12 @@ import {
 } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import { Auth } from 'aws-amplify';
+import { API } from "aws-amplify";
 import { useState, useEffect } from "react"
 import { Navigate, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import { getUISet } from "../../utils/tools";
+import { apiName, usersPath } from "../../utils/api"
 import { translations } from '@aws-amplify/ui-react';
 import './AuthForm.css';
 
@@ -115,6 +117,15 @@ export default function AuthForm(props) {
           enabled: true,
         },
       });
+
+      // await API.put(apiName, usersPath);
+      let userInfor = await Auth.currentUserInfo();
+      console.log(userInfor)
+
+      await API.put(apiName, usersPath, {body: {
+        UserID: userInfor.username,
+        Identity: userInfor.id
+      }});
 
       // startSignOut();
       await Auth.signOut({global: true});

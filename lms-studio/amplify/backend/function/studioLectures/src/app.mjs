@@ -1,4 +1,4 @@
-import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
+import { DynamoDBClient, DescribeTableCommand } from "@aws-sdk/client-dynamodb";
 import {
   DynamoDBDocumentClient,
   PutCommand,
@@ -210,6 +210,24 @@ app.get(path + "/topViews", function (req, res) {
   );
 });
 
+app.get(path + "/describe", function (req, res){
+  let params = {
+    TableName: tableName,
+  };
+  const command = new DescribeTableCommand(params);
+  client.send(command).then(
+    (data) => {
+      console.log(data);
+      res.json(data.Table);
+    },
+    (err) => {
+      console.log(err);
+      res.statusCode = 500;
+      res.json({ error: "Could not load items: " + err });
+    }
+  );
+})
+
 // /*****************************************
 //  * HTTP Get method for get single object *
 //  *****************************************/
@@ -261,6 +279,7 @@ app.get(path + hashKeyPath, function (req, res) {
     }
   );
 });
+
 
 // /************************************
 // * HTTP put method for insert object *

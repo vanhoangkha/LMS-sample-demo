@@ -1,0 +1,10 @@
+{
+  "resourceName": "UserProgress",
+  "tableName": "UserProgress",
+  "partitionKey": {
+    "fieldName": "UserID",
+    "fieldType": "string"
+  },
+  "gsi": [],
+  "triggerFunctions": []
+}

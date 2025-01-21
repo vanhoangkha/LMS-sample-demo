@@ -39,6 +39,7 @@ export function calcTimeBrief(time, hour, minute) {
 }
 
 export async function getUISet() {
+  // localStorage.removeItem("AWSLIBVN_UISET")
   let localParams = localStorage.getItem("AWSLIBVN_UISET");
   let data = JSON.parse(localParams);
   if (data) {

@@ -174,7 +174,13 @@
           "Statement": [
             {
               "Action": [
-                "cognito-idp:ListUsers"
+                "dynamodb:DescribeTable",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem"
               ],
               "Resource": [
                 "*"

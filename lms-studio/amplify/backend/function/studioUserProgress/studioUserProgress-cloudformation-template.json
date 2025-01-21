@@ -15,9 +15,6 @@
     },
     "s3Key": {
       "Type": "String"
-    },
-    "userpoolId": {
-      "Type": "String"
     }
   },
   "Conditions": {
@@ -50,12 +47,12 @@
         "FunctionName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "userOverview",
+            "studioUserProgress",
             {
               "Fn::Join": [
                 "",
                 [
-                  "userOverview",
+                  "studioUserProgress",
                   "-",
                   {
                     "Ref": "env"
@@ -72,9 +69,6 @@
             },
             "REGION": {
               "Ref": "AWS::Region"
-            },
-            "USERPOOL_ID": {
-              "Ref": "userpoolId"
             }
           }
         },
@@ -95,12 +89,12 @@
         "RoleName": {
           "Fn::If": [
             "ShouldNotCreateEnvResources",
-            "lmsstudioLambdaRole4e464f4d",
+            "lmsstudiodevLambdaRole9893333c",
             {
               "Fn::Join": [
                 "",
                 [
-                  "lmsstudioLambdaRole4e464f4d",
+                  "lmsstudiodevLambdaRole9893333c",
                   "-",
                   {
                     "Ref": "env"
@@ -180,7 +174,13 @@
           "Statement": [
             {
               "Action": [
-                "cognito-idp:ListUsers"
+                "dynamodb:DescribeTable",
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:PutItem",
+                "dynamodb:UpdateItem",
+                "dynamodb:DeleteItem"
               ],
               "Resource": [
                 "*"

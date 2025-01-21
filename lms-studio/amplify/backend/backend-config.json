@@ -89,6 +89,14 @@
           ],
           "category": "function",
           "resourceName": "studioSecretManager"
+        },
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "studioUserProgress"
         }
       ],
       "providerPlugin": "awscloudformation",
@@ -143,6 +151,11 @@
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     },
+    "addUserProgress": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
     "studioAccessCode": {
       "build": true,
       "providerPlugin": "awscloudformation",
@@ -185,6 +198,11 @@
       "service": "Lambda"
     },
     "studioUserCourse": {
+      "build": true,
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    },
+    "studioUserProgress": {
       "build": true,
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
@@ -246,6 +264,22 @@
         {
           "category": "function",
           "resourceName": "addCourseOpportunity"
+        }
+      ]
+    },
+    "AMPLIFY_function_addUserProgress_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserProgress"
+        }
+      ]
+    },
+    "AMPLIFY_function_addUserProgress_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "addUserProgress"
         }
       ]
     },
@@ -393,6 +427,22 @@
         }
       ]
     },
+    "AMPLIFY_function_studioUserProgress_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "studioUserProgress"
+        }
+      ]
+    },
+    "AMPLIFY_function_studioUserProgress_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "studioUserProgress"
+        }
+      ]
+    },
     "AMPLIFY_function_studioUsers_deploymentBucketName": {
       "usedBy": [
         {
@@ -418,6 +468,14 @@
       ]
     },
     "AMPLIFY_function_userOverview_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "userOverview"
+        }
+      ]
+    },
+    "AMPLIFY_function_userOverview_userpoolId": {
       "usedBy": [
         {
           "category": "function",

@@ -473,6 +473,14 @@
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"
     },
+    "UserProgress": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
+    "Users": {
+      "providerPlugin": "awscloudformation",
+      "service": "DynamoDB"
+    },
     "courses": {
       "providerPlugin": "awscloudformation",
       "service": "DynamoDB"

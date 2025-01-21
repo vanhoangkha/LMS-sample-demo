@@ -95,6 +95,19 @@
           "delete"
         ]
       }
+    },
+    "/userProgress": {
+      "name": "/userProgress",
+      "lambdaFunction": "studioUserProgress",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }
