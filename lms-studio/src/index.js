@@ -44,6 +44,7 @@ import SetUI from './views/Management/SetUI/SetUI'
 import CreateSetUI from './views/CreateSetUI/CreateSetUI'
 import UpdateUISet from './views/UpdateUISet/UpdateUISet'
 import BatchManagement from "./views/Management/BatchManagement/BatchManagement"
+import UserDetail from "./views/Management/User/UserDetail"
 
 // Configure Amplify
 Amplify.configure(awsExports);
@@ -93,6 +94,10 @@ const router = createHashRouter([
       {
         path: "user",
         element: <User />
+      },
+      {
+        path: "user/:id",
+        element: <UserDetail />
       },
       {
         path: "myLectures/detail/:id",
@@ -175,6 +180,10 @@ const router = createHashRouter([
       {
         path: "user",
         element: <User />
+      },
+      {
+        path: "user/:id",
+        element: <UserDetail />
       },
       {
         path: "myLectures/detail/:id",

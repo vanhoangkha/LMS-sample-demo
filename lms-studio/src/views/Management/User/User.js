@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Navigate, useLocation, Link } from "react-router-dom";
 import Tabs from "@cloudscape-design/components/tabs";
 import Container from "@cloudscape-design/components/container";
 import Header from "@cloudscape-design/components/header";
@@ -104,14 +105,15 @@ const User = () => {
       const progress = userProgress.find((item) => item.UserID === user.userId);
       let countPercent = 0;
       if(progress){
-          progress.Progress.map((item) => {
-              countPercent += item.ProgressPercent
+          progress.Progress.map((pro) => {
+              countPercent += pro.ProgressPercent
           })
       }
       console.log("progress ", progress);
       return {
         ...user,
         avgProgress: progress ? (countPercent / (overView.courseCount*100))*100 : 0,
+        detail: progress
       };
     });
     console.log(userHasInfor);
@@ -240,7 +242,7 @@ const User = () => {
                 {
                   id: "username",
                   header: "User name",
-                  cell: (e) => e.name,
+                  cell: (e) => <Link to={'/management/user/' + e.userId} state={e}>{e.name}</Link>,
                   sortingField: "name",
                   isRowHeader: true,
                 },
