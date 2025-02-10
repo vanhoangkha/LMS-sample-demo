@@ -98,7 +98,8 @@ app.put(path, function (req, res) {
 
   docClient.send(getCommand).then(
     (data) => {
-      if (data.Item) {
+      console.log("data: ", data)
+      if (!data.Item) {
         let putItemParams = {
           TableName: tableName,
           Item: req.body,
@@ -120,6 +121,7 @@ app.put(path, function (req, res) {
           }
         );
       } else {
+        console.log("User existed")
         res.json({ success: "put call succeed!", url: req.url, data: data });
       }
     },
