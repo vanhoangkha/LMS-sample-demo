@@ -25,7 +25,7 @@
 ## 2. Clone Code:
 
 ```
-git clone https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/lms/aws_lms_dev
+git clone https://git-codecommit.ap-southeast-1.amazonaws.com/v1/repos/aws_lms_special_force
 ```
 
 ## 3. Download Amplify CLI:
@@ -36,14 +36,14 @@ Follow below instructions in section "Install the Amplify CLI", and section "Con
 **Step:** "Specify the **AWS Region**" -> Choose **Singapore Region**.
 
 ## 4. Init Amplify and connect your local env to the Cloud:
-- Open your local aws_lms_dev root folder and do amplify setup with lms first:
+- Open your local aws_lms_special_force root folder and do amplify setup with lms first:
 
 ```
-cd aws_lms_dev/lms
+cd aws_lms_special_force/lms
 
 (sudo) amplify init
 
-? Enter a name for the environment: hdbank
+? Enter a name for the environment: <your-environment-name>
 
 ? Choose your default editor: <Choose your favorite editor>
 
@@ -51,18 +51,18 @@ Using default provider  awscloudformation
 
 ? Select the authentication method you want to use: AWS profile
 
-? Please choose the profile you want to use : <Choose the profile you created in Configure the Amplify CLI from section 2. Download Amplify CLI>
+? Please choose the profile you want to use : <Choose the profile you created in Configure the Amplify CLI from section 3. Download Amplify CLI>
 
 amplify push
 
 ```
 
-- Similarly, do all the above steps in this section 3 for lms:
+- Similarly, do all the above steps for lms-studio:
 
-- Open your local aws_lms_dev root folder, then:
+- Open your local aws_lms_special_force root folder, then:
 
 ```
-cd aws_lms_dev/lms-studio
+cd aws_lms_special_force/lms-studio
 
 (sudo) amplify init
 ```
@@ -142,9 +142,9 @@ amplify push
 
 ## 6. Run Frontend from Your Local Laptop:
 ### 6.1. How to Run LMS FE:
-- Open your local LMS root folder, then:
+- Open your local aws_lms_special_force root folder, then:
 ```
-cd LMS/lms/
+cd aws_lms_special_force/lms/
 
 npm i
 
@@ -152,10 +152,10 @@ npm start
 ```
 
 ### 6.2. How to Run LMS-Studio FE:
-- Open your local LMS root folder, then:
+- Open your local aws_lms_special_force root folder, then:
 
 ```
-cd LMS/lms-studio/
+cd aws_lms_special_force/lms-studio/
 
 npm i
 
@@ -166,8 +166,8 @@ npm start
 - Sample data for Course and Lecture tables are stored in the sample-data folder.
 - You can add these data to DynamoDB using JSON view when creating a new item in DynamoDB Console.
 
-## 8. How Can We Contribute to the Source Code ?
-- Inside your cloned repository from section 1. From the d_unicorm_gym_master branch, create a new feature branch, naming convention: f_feature_name (E.g: f_create_course).
+## 8. How to Contribute to the Source Code ?
+- Inside your cloned repository from section 2. From the master branch, create a new feature branch, naming convention: f_feature_name (E.g: f_create_course).
 
 - You develop, test the project with that branch.
 
