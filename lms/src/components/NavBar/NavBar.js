@@ -3,7 +3,7 @@ import { Auth } from "aws-amplify";
 import { Navigate } from "react-router-dom";
 import { TopNavigation, Input } from "@cloudscape-design/components";
 import { withTranslation } from "react-i18next";
-import { API, Storage } from "aws-amplify";
+import { Storage } from "aws-amplify";
 import { getUISet } from "../../utils/tools";
 import { setTheme } from "../../theme/theme"
 
@@ -91,7 +91,7 @@ export class NavBar extends React.Component {
       console.log("error signing out: ", error);
       Auth.userHasAuthenticated(false);
     }
-    if (this.props.href != "/") {
+    if (this.props.href !== "/") {
       this.setState({
         redirectHome: true,
       });
@@ -216,7 +216,7 @@ export class NavBar extends React.Component {
                     ],
                     onItemClick: (e) => {
                       if (e.detail.id === "mylearning") {
-                        if (this.props.href != "/mylearning") {
+                        if (this.props.href !== "/mylearning") {
                           this.setState({
                             redirectMyLearning: true,
                           });

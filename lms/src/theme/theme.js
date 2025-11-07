@@ -10,7 +10,7 @@ export const setTheme = (data) => {
         dark: "blue",
       },
       // Shorter syntax to apply the same value for both light and dark mode
-      colorTextAccent: "#0073bb",
+      colorTextAccent: data?.HoverColor || "#EC7211",
       colorBackgroundLayoutToggleDefault: data?.HoverColor || "#EC7211",
       colorBackgroundButtonPrimaryDefault: data?.MainColor || "#EC7211",
       colorBackgroundButtonPrimaryHover: data?.HoverColor || "#EC7211",
@@ -21,7 +21,6 @@ export const setTheme = (data) => {
       colorBackgroundButtonNormalHover: data?.TextColor || "#EC7211",
       colorBorderButtonNormalHover: data?.HoverColor || "#EC7211",
       colorTextButtonNormalHover: data?.HoverColor || "#EC7211",
-      colorTextAccent: data?.HoverColor || "#EC7211",
     },
     contexts: {
       // Values for visual contexts. Unless specified, default values will be applied
@@ -50,5 +49,5 @@ export const setTheme = (data) => {
       },
     },
   };
-  const { reset } = applyTheme({ theme });
+  applyTheme({ theme });
 };
