@@ -1,5 +1,12 @@
 # LEARNING MANAGEMENT SYSTEM
 
+![License](https://img.shields.io/github/license/vanhoangkha/LMS-sample-demo?style=flat-square)
+![Stars](https://img.shields.io/github/stars/vanhoangkha/LMS-sample-demo?style=flat-square)
+![Last Commit](https://img.shields.io/github/last-commit/vanhoangkha/LMS-sample-demo?style=flat-square)
+![Language](https://img.shields.io/github/languages/top/vanhoangkha/LMS-sample-demo?style=flat-square)
+
+
+
 ## Table of Contents
 1. [Architect Overview](#1-architect-overview)
 2. [Clone Code](#2-clone-code)
