@@ -1,18 +1,18 @@
 # Hướng Dẫn Deploy LMS Lên AWS Amplify với GitHub CI/CD
 
-## 📋 Tổng Quan
+## Tổng Quan
 
 Hướng dẫn này sẽ giúp bạn deploy ứng dụng LMS lên AWS Amplify và thiết lập CI/CD tự động từ GitHub.
 
-## 🎯 Yêu Cầu
+## Yêu Cầu
 
-- ✅ AWS Account với quyền truy cập Amplify
-- ✅ AWS CLI đã cài đặt và cấu hình
-- ✅ Amplify CLI đã cài đặt (`npm install -g @aws-amplify/cli`)
-- ✅ GitHub Personal Access Token (tạo tại: https://github.com/settings/tokens)
-- ✅ Repository: https://github.com/vanhoangkha/LMS-sample-demo.git
+- AWS Account với quyền truy cập Amplify
+- AWS CLI đã cài đặt và cấu hình
+- Amplify CLI đã cài đặt (`npm install -g @aws-amplify/cli`)
+- GitHub Personal Access Token (tạo tại: https://github.com/settings/tokens)
+- Repository: https://github.com/vanhoangkha/LMS-sample-demo.git
 
-## 🚀 Phương Pháp 1: Deploy Tự Động (Khuyến Nghị)
+## Phương Pháp 1: Deploy Tự Động (Khuyến Nghị)
 
 ### Bước 1: Cấu hình AWS Credentials
 
@@ -42,12 +42,12 @@ chmod +x setup-amplify-cicd.sh
 ```
 
 Script sẽ tự động:
-- ✅ Kiểm tra prerequisites
-- ✅ Commit và push `amplify.yml` lên GitHub
-- ✅ Tạo Amplify App
-- ✅ Kết nối GitHub repository
-- ✅ Cấu hình CI/CD pipeline
-- ✅ Trigger deployment đầu tiên
+- Kiểm tra prerequisites
+- Commit và push `amplify.yml` lên GitHub
+- Tạo Amplify App
+- Kết nối GitHub repository
+- Cấu hình CI/CD pipeline
+- Trigger deployment đầu tiên
 
 ### Bước 4: Theo Dõi Deployment
 
@@ -55,7 +55,7 @@ Sau khi script chạy xong, bạn sẽ nhận được:
 - **App URL**: `https://master.{APP_ID}.amplifyapp.com`
 - **Console URL**: Link để theo dõi build progress
 
-## 🖥️ Phương Pháp 2: Deploy Qua AWS Console (Manual)
+## Phương Pháp 2: Deploy Qua AWS Console (Manual)
 
 ### Bước 1: Truy Cập AWS Amplify Console
 
@@ -116,7 +116,7 @@ Thêm các biến môi trường nếu cần:
 2. Click **Save and deploy**
 3. Theo dõi build progress trong console
 
-## 📁 Cấu Trúc Amplify Backend
+## Cấu Trúc Amplify Backend
 
 Dự án đã có sẵn Amplify backend với:
 
@@ -162,7 +162,7 @@ Dự án đã có sẵn Amplify backend với:
 - **S3 Bucket**: lectureresource (video storage)
 - **Region**: ap-southeast-1
 
-## 🔄 CI/CD Workflow
+## CI/CD Workflow
 
 ### Automatic Deployment Triggers
 
@@ -209,7 +209,7 @@ Sau khi setup, mỗi khi bạn push code lên GitHub:
 
 Total time: ~7-10 phút
 
-## 🔍 Monitoring & Troubleshooting
+## Monitoring & Troubleshooting
 
 ### Xem Build Logs
 
@@ -253,7 +253,7 @@ Nếu deployment có vấn đề:
 3. Tìm build version trước đó working
 4. Click **Redeploy this version**
 
-## 🌐 Custom Domain (Optional)
+## Custom Domain (Optional)
 
 ### Thêm Custom Domain
 
@@ -273,7 +273,7 @@ Name: lms
 Value: {amplify-domain}
 ```
 
-## 📊 Performance Optimization
+## Performance Optimization
 
 ### Enable Caching
 
@@ -289,7 +289,7 @@ Optimize build time với caching:
 - Incremental builds for unchanged files
 - Parallel backend và frontend builds
 
-## 🔒 Security Best Practices
+## Security Best Practices
 
 1. **GitHub Token**: Lưu token an toàn, không commit vào code
 2. **Environment Variables**: Dùng Amplify environment variables cho secrets
@@ -297,7 +297,7 @@ Optimize build time với caching:
 4. **HTTPS**: Amplify tự động enable HTTPS
 5. **CORS**: Configure đúng CORS trong API Gateway
 
-## 💰 Cost Estimation
+## Cost Estimation
 
 ### AWS Amplify Hosting
 - **Build minutes**: $0.01/phút (50 phút free/tháng)
@@ -313,7 +313,7 @@ Optimize build time với caching:
 
 Estimated monthly cost: $10-50 (depending on traffic)
 
-## 📞 Support
+## Support
 
 ### AWS Amplify Documentation
 - https://docs.aws.amazon.com/amplify/
@@ -344,7 +344,7 @@ amplify console
 amplify console api
 ```
 
-## ✅ Checklist
+## Checklist
 
 - [ ] AWS credentials configured
 - [ ] Amplify CLI installed
@@ -357,17 +357,17 @@ amplify console api
 - [ ] (Optional) Configure custom domain
 - [ ] (Optional) Set up monitoring alerts
 
-## 🎉 Kết Luận
+## Kết Luận
 
 Sau khi hoàn tất các bước trên, bạn sẽ có:
 
-✅ LMS application deployed lên AWS Amplify
-✅ GitHub CI/CD tự động
-✅ Backend services (Lambda, DynamoDB, S3) running
-✅ Authentication với Cognito
-✅ HTTPS enabled
-✅ CDN global distribution
-✅ Auto-scaling infrastructure
+LMS application deployed lên AWS Amplify
+GitHub CI/CD tự động
+Backend services (Lambda, DynamoDB, S3) running
+Authentication với Cognito
+HTTPS enabled
+CDN global distribution
+Auto-scaling infrastructure
 
 Mỗi lần push code lên GitHub, ứng dụng sẽ tự động build và deploy!
 
